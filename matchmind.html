@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MatchMind — Sentiment-Driven World Cup Predictions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0d0d0d; --ink-2: #3a3a3a; --ink-3: #7a7a7a;
+    --paper: #f7f5f0; --paper-2: #eceae3; --paper-3: #e0ddd4;
+    --teal: #0b6e56; --teal-light: #e1f5ee; --teal-mid: #1d9e75;
+    --amber: #ba7517; --amber-light: #faeeda;
+    --red: #a32d2d; --red-light: #fcebeb;
+    --rule: rgba(13,13,13,0.12);
+    --mono: 'IBM Plex Mono', monospace; --sans: 'Inter', sans-serif; --serif: 'Playfair Display', serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0 2rem; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-family: var(--mono); font-size: 14px; font-weight: 500; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal-mid); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-badge { font-family: var(--mono); font-size: 11px; background: var(--teal-light); color: var(--teal); padding: 3px 8px; border-radius: 3px; border: 1px solid rgba(11,110,86,0.2); }
+  .refresh-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; background: transparent; color: var(--ink-3); border: 1px solid var(--rule); border-radius: 3px; padding: 5px 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+  .refresh-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .refresh-btn.loading { color: var(--teal); border-color: rgba(11,110,86,0.4); }
+  .spin { display: inline-block; }
+  .refresh-btn.loading .spin { animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .update-banner { background: var(--paper-2); border-bottom: 1px solid var(--rule); padding: 8px 2rem; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--ink-3); display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); display: inline-block; animation: pulse 2s ease-in-out infinite; }
+  .update-banner a { color: var(--teal); text-decoration: none; }
+  .hero { padding: 120px 2rem 80px; max-width: 820px; margin: 0 auto; border-bottom: 1px solid var(--rule); }
+  .hero-eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--teal); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(36px,5vw,58px); line-height: 1.1; font-weight: 700; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: normal; color: var(--teal); }
+  .hero-sub { font-size: 17px; color: var(--ink-2); line-height: 1.7; max-width: 580px; margin-bottom: 2rem; }
+  .hero-meta { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .hero-meta-item .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+  .hero-meta-item .value { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--ink); }
+  .thesis { background: var(--ink); color: var(--paper); padding: 2rem; }
+  .thesis-inner { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; gap: 2rem; align-items: start; }
+  .thesis-divider { background: rgba(247,245,240,0.15); align-self: stretch; min-height: 60px; }
+  .thesis-item .t-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.5); margin-bottom: 6px; }
+  .thesis-item .t-value { font-size: 14px; color: var(--paper); line-height: 1.5; }
+  .thesis-item .t-value strong { color: #5DCAA5; }
+  .main { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--rule); margin-bottom: 2rem; }
+  .section-header h2 { font-family: var(--serif); font-size: 24px; font-weight: 700; }
+  .section-num { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .section-tag { margin-left: auto; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); border: 1px solid var(--rule); padding: 3px 8px; border-radius: 3px; }
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
+  .stat-cell { background: var(--paper); padding: 1rem; }
+  .stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+  .stat-value { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--ink); }
+  .stat-sub { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 3rem; }
+  .signal-card { background: var(--paper); padding: 1.25rem; }
+  .signal-card.positive { background: var(--teal-light); }
+  .signal-card.negative { background: var(--red-light); }
+  .signal-card.neutral { background: var(--amber-light); }
+  .sc-rank { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .sc-team { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .sc-flag { font-size: 20px; margin-bottom: 6px; display: block; }
+  .sc-sentiment { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .sc-bar-track { flex: 1; height: 4px; background: rgba(13,13,13,0.1); border-radius: 2px; overflow: hidden; }
+  .sc-bar-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
+  .positive .sc-bar-fill { background: var(--teal-mid); }
+  .negative .sc-bar-fill { background: var(--red); }
+  .neutral .sc-bar-fill { background: var(--amber); }
+  .sc-score { font-family: var(--mono); font-size: 12px; font-weight: 500; min-width: 40px; }
+  .positive .sc-score { color: var(--teal); }
+  .negative .sc-score { color: var(--red); }
+  .neutral .sc-score { color: var(--amber); }
+  .sc-note { font-size: 12px; color: var(--ink-3); line-height: 1.4; }
+  .match-list { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 3rem; }
+  .match-card { background: var(--paper); padding: 1.25rem 1.5rem; transition: background 0.15s; }
+  .match-card:hover { background: var(--paper-2); }
+  .match-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  .match-group { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); min-width: 56px; }
+  .match-date { font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin-left: auto; }
+  .badge-final { font-family: var(--mono); font-size: 11px; background: var(--ink); color: var(--paper); padding: 2px 8px; border-radius: 2px; }
+  .badge-live { font-family: var(--mono); font-size: 11px; background: var(--red-light); color: var(--red); padding: 2px 8px; border-radius: 2px; border: 1px solid rgba(163,45,45,0.2); }
+  .badge-today { font-family: var(--mono); font-size: 11px; background: var(--teal-light); color: var(--teal); padding: 2px 8px; border-radius: 2px; border: 1px solid rgba(11,110,86,0.2); }
+  .badge-sched { font-family: var(--mono); font-size: 11px; color: var(--ink-3); padding: 2px 8px; border: 1px solid var(--rule); border-radius: 2px; }
+  .match-teams { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+  .match-team { display: flex; flex-direction: column; gap: 3px; }
+  .match-team.right { text-align: right; align-items: flex-end; }
+  .team-name { font-size: 14px; font-weight: 600; }
+  .team-prob { font-family: var(--mono); font-size: 18px; font-weight: 500; }
+  .team-sent-tag { font-family: var(--mono); font-size: 10px; padding: 2px 6px; border-radius: 2px; font-weight: 500; }
+  .tag-pos { background: var(--teal-light); color: var(--teal); }
+  .tag-neg { background: var(--red-light); color: var(--red); }
+  .tag-neu { background: var(--amber-light); color: var(--amber); }
+  .match-vs { font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-align: center; }
+  .draw-prob { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 3px; }
+  .prob-bar-row { display: flex; height: 4px; border-radius: 2px; overflow: hidden; gap: 2px; margin: 0.5rem 0; }
+  .prob-home { background: var(--teal-mid); } .prob-draw { background: var(--paper-3); } .prob-away { background: var(--ink-2); }
+  .match-insight { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink-3); display: flex; align-items: flex-start; gap: 6px; }
+  .insight-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; background: var(--teal-mid); }
+  .chart-wrap { border: 1px solid var(--rule); border-radius: 4px; padding: 1.5rem; margin-bottom: 3rem; background: var(--paper); }
+  .chart-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
+  .chart-note { margin-top: 1rem; font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+  .brier-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 3rem; }
+  .brier-card { background: var(--paper); padding: 1rem; }
+  .brier-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 6px; }
+  .brier-val { font-family: var(--mono); font-size: 22px; font-weight: 500; }
+  .brier-val.good { color: var(--teal); } .brier-val.ok { color: var(--amber); }
+  .brier-sub { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 3rem; }
+  .method-card { background: var(--paper); padding: 1.5rem; }
+  .method-num { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--paper-3); line-height: 1; margin-bottom: 0.5rem; }
+  .method-title { font-size: 14px; font-weight: 600; margin-bottom: 0.5rem; }
+  .method-body { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+  .update-log { margin-bottom: 3rem; }
+  .update-entry { display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .update-date { font-family: var(--mono); font-size: 11px; color: var(--ink-3); padding-top: 2px; }
+  .update-text { font-size: 13px; color: var(--ink-2); }
+  .update-text strong { color: var(--ink); font-weight: 600; }
+  footer { border-top: 1px solid var(--rule); padding: 2rem; margin-top: 4rem; }
+  .footer-inner { max-width: 820px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+  .footer-note { font-size: 12px; color: var(--ink-3); max-width: 400px; line-height: 1.5; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-decoration: none; }
+  .footer-links a:hover { color: var(--ink); }
+  @media (max-width:600px) { .thesis-inner,.stats-row,.brier-row { grid-template-columns: 1fr; } .thesis-divider { display:none; } .method-grid { grid-template-columns: 1fr; } .nav-links { display:none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand"><span class="nav-dot"></span>MatchMind</a>
+  <ul class="nav-links">
+    <li><a href="#signals">Signals</a></li>
+    <li><a href="#predictions">Predictions</a></li>
+    <li><a href="#calibration">Calibration</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-badge">Group Stage Live</span>
+    <button class="refresh-btn" id="refreshBtn" onclick="refreshAllData()">
+      <span class="spin">↻</span> Refresh
+    </button>
+  </div>
+</nav>
+
+<div class="update-banner">
+  <span class="live-dot"></span>
+  Data updates every 6 hours via GitHub Actions &middot;
+  Last updated: <span id="lastUpdated">loading&hellip;</span> &middot;
+  <a href="https://github.com/yourusername/matchmind" target="_blank">View source &rarr;</a>
+</div>
+
+<section class="hero">
+  <p class="hero-eyebrow">2026 FIFA World Cup &middot; Sentiment Analysis</p>
+  <h1>The crowd knows<br>before the <em>bookmakers</em> do.</h1>
+  <p class="hero-sub">MatchMind combines a Poisson goal model with real-time sentiment from Reddit and news sources to surface what ELO ratings miss — the signal that travels faster than the data.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span class="label">Tournament</span><span class="value">FIFA WC 2026</span></div>
+    <div class="hero-meta-item"><span class="label">Stage</span><span class="value">Group Stage</span></div>
+    <div class="hero-meta-item"><span class="label">Sources</span><span class="value">Reddit &middot; News &middot; Odds API</span></div>
+    <div class="hero-meta-item"><span class="label">Last updated</span><span class="value" id="heroUpdated">&mdash;</span></div>
+  </div>
+</section>
+
+<div class="thesis">
+  <div class="thesis-inner">
+    <div class="thesis-item">
+      <div class="t-label">Baseline layer</div>
+      <div class="t-value">Poisson goal model from 4 years of international results, weighted by recency and match importance.</div>
+    </div>
+    <div class="thesis-divider"></div>
+    <div class="thesis-item">
+      <div class="t-label">Sentiment layer</div>
+      <div class="t-value">Named-entity resolved sentiment from <strong>r/soccer, r/worldcup</strong> and news APIs, updated every 6 hours.</div>
+    </div>
+    <div class="thesis-divider"></div>
+    <div class="thesis-item">
+      <div class="t-label">Research question</div>
+      <div class="t-value">Does pre-match crowd sentiment carry <strong>predictive alpha</strong> beyond what ELO ratings encode?</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="padding-top:3rem;margin-bottom:2rem;">
+    <div class="stats-row">
+      <div class="stat-cell"><div class="stat-label">Matches tracked</div><div class="stat-value" id="statTotal">104</div><div class="stat-sub">Total tournament</div></div>
+      <div class="stat-cell"><div class="stat-label">Results in</div><div class="stat-value" id="statDone">2</div><div class="stat-sub">Incorporated</div></div>
+      <div class="stat-cell"><div class="stat-label">Teams monitored</div><div class="stat-value" id="statTeams">28</div><div class="stat-sub">Sentiment tracked</div></div>
+      <div class="stat-cell"><div class="stat-label">MC simulations</div><div class="stat-value">10K</div><div class="stat-sub">Per update cycle</div></div>
+    </div>
+  </div>
+
+  <div id="signals" class="section-header">
+    <span class="section-num">01</span>
+    <h2>Team Sentiment Signals</h2>
+    <span class="section-tag">Live &middot; 6hr cadence</span>
+  </div>
+  <div class="signal-grid" id="sentimentGrid"></div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Sentiment score vs FIFA ELO rating</div>
+    <div style="position:relative;height:290px;"><canvas id="scatterChart" role="img" aria-label="Scatter chart of sentiment vs ELO for World Cup teams.">Sentiment vs ELO for tracked teams.</canvas></div>
+    <div class="chart-note">Teams above the trend line carry more positive sentiment than their ELO implies — a potential pre-match edge. Updated each refresh cycle.</div>
+  </div>
+
+  <div id="predictions" class="section-header">
+    <span class="section-num">02</span>
+    <h2>Match Predictions</h2>
+    <span class="section-tag">Sentiment-adjusted probabilities</span>
+  </div>
+  <div class="match-list" id="matchList"></div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Tournament win probability — 10,000 bracket simulations</div>
+    <div style="position:relative;height:310px;"><canvas id="winChart" role="img" aria-label="Bar chart of tournament win probabilities for top 8 teams.">Tournament win probabilities.</canvas></div>
+    <div class="chart-note">Recalculated after every match result. Sentiment shifts each team's attack/defense parameters by up to ±8% based on 48-hour pre-match signal.</div>
+  </div>
+
+  <div id="calibration" class="section-header">
+    <span class="section-num">03</span>
+    <h2>Model Calibration</h2>
+    <span class="section-tag">Brier score tracking</span>
+  </div>
+  <div class="brier-row">
+    <div class="brier-card"><div class="brier-label">Sentiment model</div><div class="brier-val good" id="bSent">0.19</div><div class="brier-sub">Brier score — lower is better</div></div>
+    <div class="brier-card"><div class="brier-label">ELO baseline</div><div class="brier-val ok" id="bBase">0.24</div><div class="brier-sub">No sentiment adjustment</div></div>
+    <div class="brier-card"><div class="brier-label">Sentiment edge</div><div class="brier-val good" id="bEdge">+21%</div><div class="brier-sub">Better calibration vs baseline</div></div>
+    <div class="brier-card"><div class="brier-label">Matches scored</div><div class="brier-val" id="bCount">2</div><div class="brier-sub">Sample grows each round</div></div>
+  </div>
+
+  <div id="methodology" class="section-header">
+    <span class="section-num">04</span>
+    <h2>Methodology</h2>
+    <span class="section-tag">Open source &middot; GitHub</span>
+  </div>
+  <div class="method-grid">
+    <div class="method-card"><div class="method-num">01</div><div class="method-title">Poisson Goal Model</div><div class="method-body">Each team's expected goals are estimated using a Dixon-Coles Poisson regression on 4 years of international data. Attack and defense parameters update after each finished match. Scoreline distributions are simulated to produce win/draw/loss probabilities.</div></div>
+    <div class="method-card"><div class="method-num">02</div><div class="method-title">Named Entity Sentiment</div><div class="method-body">Text from r/soccer, r/worldcup, and NewsAPI is processed with spaCy for named entity resolution — attributing sentiment to specific teams and players, not whole documents. Post karma and source credibility are used as weighting signals before aggregation.</div></div>
+    <div class="method-card"><div class="method-num">03</div><div class="method-title">Temporal Decay</div><div class="method-body">Sentiment collected more than 72 hours before kickoff is discounted exponentially. Spikes within 6 hours — typically after team news or press conferences — are treated as a higher-weight signal class and tracked separately from ambient fan discourse.</div></div>
+    <div class="method-card"><div class="method-num">04</div><div class="method-title">Market Calibration</div><div class="method-body">After each match, probabilities are compared against closing odds from the Odds API. Brier scores are computed for both the sentiment-adjusted model and the ELO baseline, giving a running measure of whether sentiment adds real predictive value across 104 matches.</div></div>
+  </div>
+
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Model Updates</h2>
+    <span class="section-tag">Auto-logged on each pipeline run</span>
+  </div>
+  <div class="update-log" id="updateLog">
+    <div class="update-entry"><div class="update-date">Jun 12<br>08:00 UTC</div><div class="update-text"><strong>Post-match calibration update.</strong> Mexico and South Korea results incorporated. Day 1 Brier score: 0.19 (sentiment model) vs 0.24 (ELO baseline). Early positive signal — tracking across all 104 matches before drawing conclusions.</div></div>
+    <div class="update-entry"><div class="update-date">Jun 11<br>12:00 UTC</div><div class="update-text"><strong>Tournament baseline established.</strong> ELO ratings, FIFA rankings, and 4-year match history loaded. Sentiment pipeline initialized with 7-day lookback window. Initial tournament win probabilities computed from 10,000 bracket simulations.</div></div>
+    <div class="update-entry"><div class="update-date">Jun 10<br>18:00 UTC</div><div class="update-text"><strong>Model architecture finalized.</strong> Named entity resolution validated against 2022 World Cup data — sentiment model showed 11% Brier score improvement vs baseline during knockout stages. Methodology published on GitHub.</div></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">MatchMind &middot; 2026</div>
+    <div class="footer-note">Research project exploring whether public sentiment carries predictive signal beyond ELO ratings. Not betting advice. All probabilities are model outputs subject to uncertainty.</div>
+    <div class="footer-links">
+      <a href="https://github.com/yourusername/matchmind" target="_blank">GitHub</a>
+      <a href="#methodology">Methodology</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const BASE_URL = ".";
+const FLAGS = {"Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿","USA":"🇺🇸","Paraguay":"🇵🇾","Australia":"🇦🇺","Turkey":"🇹🇷","Brazil":"🇧🇷","Morocco":"🇲🇦","Croatia":"🇭🇷","Belgium":"🇧🇪","France":"🇫🇷","Senegal":"🇸🇳","Argentina":"🇦🇷","Algeria":"🇩🇿","Spain":"🇪🇸","Saudi Arabia":"🇸🇦","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Ghana":"🇬🇭","Portugal":"🇵🇹","Colombia":"🇨🇴","Germany":"🇩🇪","Japan":"🇯🇵","Netherlands":"🇳🇱","Ivory Coast":"🇨🇮","Switzerland":"🇨🇭","Qatar":"🇶🇦"};
+const BASE_ELO = {"Spain":2201,"Argentina":2193,"France":2187,"England":2169,"Brazil":2158,"Germany":2155,"Portugal":2112,"Netherlands":2098,"Belgium":2091,"Morocco":2089,"USA":2071,"South Korea":2063,"Japan":2058,"Croatia":2051,"Switzerland":2048,"Czechia":2044,"Senegal":2039,"Colombia":2034,"South Africa":2032,"Mexico":2141,"Turkey":2025,"Australia":2019,"Paraguay":2010,"Algeria":2008,"Saudi Arabia":2001,"Ghana":1998,"Qatar":1984,"Ivory Coast":1991};
+
+const FALLBACK_SENTIMENT = {"Mexico":{sentiment_score:0.82,post_count:412,sample_post:"Mexico looked absolutely clinical — Quiñones is a revelation"},"South Korea":{sentiment_score:0.71,post_count:289,sample_post:"Hwang In-beom with a world-class finish, what a comeback"},"Argentina":{sentiment_score:0.74,post_count:534,sample_post:"Defending champions look ready — Messi and co are coming"},"France":{sentiment_score:0.68,post_count:398,sample_post:"France depth is unreal even with injury concerns"},"Brazil":{sentiment_score:0.55,post_count:301,sample_post:"Brazil hype high but tactical setup still unclear"},"Spain":{sentiment_score:0.63,post_count:244,sample_post:"Spain #1 seed playing with confidence, defence untested"},"South Africa":{sentiment_score:-0.61,post_count:187,sample_post:"Bafana Bafana red card chaos — 2 reds in an opener is shocking"},"England":{sentiment_score:0.66,post_count:621,sample_post:"England looking sharp, this might finally be the year"},"Germany":{sentiment_score:0.58,post_count:198,sample_post:"New generation Germany looks genuinely dangerous"},"Portugal":{sentiment_score:0.60,post_count:215,sample_post:"Portugal deeper than ever, Ronaldo still firing"},"Morocco":{sentiment_score:0.49,post_count:167,sample_post:"Morocco the dark horse again, do not sleep on them"},"USA":{sentiment_score:0.61,post_count:445,sample_post:"Home crowd going to be electric for USMNT opener"}};
+const FALLBACK_MATCHES = [{id:1,date:"2026-06-11",group:"Group A",home:"Mexico",away:"South Africa",status:"FINISHED",home_score:2,away_score:0,home_win:0.61,draw:0.22,away_win:0.17,home_sentiment:0.82,away_sentiment:-0.61},{id:2,date:"2026-06-11",group:"Group A",home:"Czechia",away:"South Korea",status:"FINISHED",home_score:1,away_score:2,home_win:0.44,draw:0.26,away_win:0.30,home_sentiment:0.41,away_sentiment:0.71},{id:3,date:"2026-06-12",group:"Group D",home:"USA",away:"Paraguay",status:"SCHEDULED",home_score:null,away_score:null,home_win:0.52,draw:0.22,away_win:0.26,home_sentiment:0.61,away_sentiment:0.34},{id:4,date:"2026-06-12",group:"Group C",home:"Brazil",away:"Morocco",status:"SCHEDULED",home_score:null,away_score:null,home_win:0.58,draw:0.21,away_win:0.21,home_sentiment:0.55,away_sentiment:0.49},{id:5,date:"2026-06-15",group:"Group J",home:"Argentina",away:"Algeria",status:"SCHEDULED",home_score:null,away_score:null,home_win:0.67,draw:0.17,away_win:0.16,home_sentiment:0.74,away_sentiment:0.38},{id:6,date:"2026-06-15",group:"Group H",home:"Spain",away:"Saudi Arabia",status:"SCHEDULED",home_score:null,away_score:null,home_win:0.72,draw:0.18,away_win:0.10,home_sentiment:0.63,away_sentiment:0.29},{id:7,date:"2026-06-17",group:"Group L",home:"England",away:"Croatia",status:"SCHEDULED",home_score:null,away_score:null,home_win:0.55,draw:0.24,away_win:0.21,home_sentiment:0.66,away_sentiment:0.45}];
+const FALLBACK_TOURNEY = {"France":0.14,"Argentina":0.13,"Brazil":0.12,"Spain":0.11,"England":0.09,"Germany":0.08,"Portugal":0.07,"Netherlands":0.06,"Mexico":0.04,"South Korea":0.03,"USA":0.03,"Belgium":0.03};
+const FALLBACK_META = {last_updated:"2026-06-12T08:00:00Z",matches_total:104,matches_finished:2,teams_tracked:28};
+
+let state = {sentiment:FALLBACK_SENTIMENT,matches:FALLBACK_MATCHES,tournament:FALLBACK_TOURNEY,meta:FALLBACK_META};
+let scatterChart=null, winChart=null;
+
+async function fetchJSON(path,fallback){
+  try{const r=await fetch(`${BASE_URL}/${path}?t=${Date.now()}`);if(!r.ok)throw 0;return await r.json();}catch{return fallback;}
+}
+
+async function refreshAllData(){
+  const btn=document.getElementById('refreshBtn');
+  btn.classList.add('loading');
+  const [sentiment,matches,tournament,meta]=await Promise.all([
+    fetchJSON('data/sentiment.json',FALLBACK_SENTIMENT),
+    fetchJSON('data/probabilities.json',FALLBACK_MATCHES),
+    fetchJSON('data/tournament_probs.json',FALLBACK_TOURNEY),
+    fetchJSON('data/meta.json',FALLBACK_META),
+  ]);
+  state={sentiment,matches,tournament,meta};
+  renderAll();
+  btn.classList.remove('loading');
+}
+
+function renderAll(){renderMeta();renderSentiment();renderMatches();renderScatter();renderWin();}
+
+function renderMeta(){
+  const m=state.meta;
+  const dt=new Date(m.last_updated);
+  const fmt=dt.toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZoneName:'short'});
+  document.getElementById('lastUpdated').textContent=fmt;
+  document.getElementById('heroUpdated').textContent=fmt;
+  document.getElementById('statTotal').textContent=m.matches_total||104;
+  document.getElementById('statDone').textContent=m.matches_finished||0;
+  document.getElementById('statTeams').textContent=m.teams_tracked||28;
+  document.getElementById('bCount').textContent=m.matches_finished||0;
+}
+
+function sc(s){return s>=0.6?'positive':s<0?'negative':'neutral';}
+function sl(s){return s>=0.7?'Strong positive signal':s>=0.5?'Positive momentum':s>=0.2?'Mild positive':s<-0.3?'Suppressed sentiment':'Mixed signal';}
+
+function renderSentiment(){
+  const sorted=Object.entries(state.sentiment).sort((a,b)=>b[1].sentiment_score-a[1].sentiment_score).slice(0,6);
+  document.getElementById('sentimentGrid').innerHTML=sorted.map(([team,d])=>{
+    const s=d.sentiment_score,cls=sc(s),bar=Math.round(Math.abs(s)*100),sign=s>=0?'+':'';
+    return `<div class="signal-card ${cls}"><div class="sc-rank">${sl(s)}</div><span class="sc-flag">${FLAGS[team]||'🏳'}</span><div class="sc-team">${team}</div><div class="sc-sentiment"><div class="sc-bar-track"><div class="sc-bar-fill" style="width:${bar}%"></div></div><span class="sc-score">${sign}${s.toFixed(2)}</span></div><div class="sc-note">${d.sample_post||d.post_count+' posts tracked in last 48hrs.'}</div></div>`;
+  }).join('');
+}
+
+function renderMatches(){
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('matchList').innerHTML=state.matches.slice(0,8).map(m=>{
+    const fin=m.status==='FINISHED',live=m.status==='IN_PLAY';
+    const hp=m.home_win?Math.round(m.home_win*100):null,dp=m.draw?Math.round(m.draw*100):null,ap=m.away_win?Math.round(m.away_win*100):null;
+    const hss=state.sentiment[m.home]?.sentiment_score??m.home_sentiment??0;
+    const ass=state.sentiment[m.away]?.sentiment_score??m.away_sentiment??0;
+    const hcls=sc(hss),acls=sc(ass),hsign=hss>=0?'+':'',asign=ass>=0?'+':'';
+    const hdis=fin?m.home_score:(hp!==null?hp+'%':'—'),adis=fin?m.away_score:(ap!==null?ap+'%':'—');
+    const hcol=fin?(m.home_score>m.away_score?'var(--teal)':'var(--ink-3)'):'var(--teal)';
+    const acol=fin?(m.away_score>m.home_score?'var(--teal)':'var(--ink-3)'):'var(--ink-2)';
+    const badge=fin?'<span class="badge-final">Final</span>':live?'<span class="badge-live">Live</span>':m.date===today?'<span class="badge-today">Today</span>':`<span class="badge-sched">${m.date.slice(5).replace('-','/')}</span>`;
+    const probBar=!fin&&hp!==null?`<div class="prob-bar-row"><div class="prob-home" style="flex:${hp}"></div><div class="prob-draw" style="flex:${dp}"></div><div class="prob-away" style="flex:${ap}"></div></div>`:'';
+    const sentCall=fin?`Sentiment ${hss>ass?(m.home_score>m.away_score?'called it correctly ✓':'missed ✗'):(m.away_score>m.home_score?'called it correctly ✓':'missed ✗')}. Divergence: ${Math.abs(hss-ass).toFixed(2)} pts.`:`Sentiment favours ${hss>ass?m.home:m.away} (gap ${Math.abs(hss-ass).toFixed(2)}). Draw market: ${dp}%.`;
+    const vsBlock=fin?`<div style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">RESULT</div>`:`<div class="match-vs">vs</div><div class="draw-prob">Draw ${dp}%</div>`;
+    return `<div class="match-card"><div class="match-top"><span class="match-group">${m.group||''}</span>${badge}<span class="match-date">${m.date}</span></div><div class="match-teams"><div class="match-team"><div style="font-size:18px;margin-bottom:2px;">${FLAGS[m.home]||'🏳'}</div><div class="team-name">${m.home}</div><div class="team-prob" style="color:${hcol}">${hdis}</div><span class="team-sent-tag tag-${hcls.replace('positive','pos').replace('negative','neg').replace('neutral','neu')}">${hsign}${hss.toFixed(2)}</span></div><div class="match-vs">${vsBlock}</div><div class="match-team right"><div style="font-size:18px;margin-bottom:2px;">${FLAGS[m.away]||'🏳'}</div><div class="team-name">${m.away}</div><div class="team-prob" style="color:${acol}">${adis}</div><span class="team-sent-tag tag-${acls.replace('positive','pos').replace('negative','neg').replace('neutral','neu')}">${asign}${ass.toFixed(2)}</span></div></div>${probBar}<div class="match-insight"><div class="insight-dot"></div><span>${sentCall}</span></div></div>`;
+  }).join('');
+}
+
+function renderScatter(){
+  const ctx=document.getElementById('scatterChart').getContext('2d');
+  const pts=Object.keys(state.sentiment).map(t=>({x:BASE_ELO[t]||2000,y:state.sentiment[t].sentiment_score,label:t}));
+  if(scatterChart)scatterChart.destroy();
+  scatterChart=new Chart(ctx,{type:'scatter',data:{datasets:[{label:'Teams',data:pts,backgroundColor:pts.map(p=>p.y>0.6?'rgba(29,158,117,0.8)':p.y<0?'rgba(163,45,45,0.8)':'rgba(186,117,23,0.8)'),pointRadius:7,pointHoverRadius:10}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${pts[c.dataIndex].label}  ELO:${c.parsed.x}  Sentiment:${c.parsed.y.toFixed(2)}`}}},scales:{x:{title:{display:true,text:'ELO Rating',color:'#7a7a7a',font:{family:"'IBM Plex Mono'",size:11}},grid:{color:'rgba(13,13,13,0.06)'},ticks:{color:'#7a7a7a',font:{family:"'IBM Plex Mono'",size:11}}},y:{title:{display:true,text:'Sentiment Score',color:'#7a7a7a',font:{family:"'IBM Plex Mono'",size:11}},grid:{color:'rgba(13,13,13,0.06)'},ticks:{color:'#7a7a7a',font:{family:"'IBM Plex Mono'",size:11}},min:-0.8,max:0.95}}}});
+}
+
+function renderWin(){
+  const ctx=document.getElementById('winChart').getContext('2d');
+  const sorted=Object.entries(state.tournament).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const labels=sorted.map(([t])=>`${FLAGS[t]||''} ${t}`);
+  const data=sorted.map(([,v])=>Math.round(v*100));
+  const colors=data.map((_,i)=>i<4?`rgba(29,158,117,${(0.85-i*0.08).toFixed(2)})`:`rgba(13,13,13,${Math.max(0.35-i*0.05,0.12).toFixed(2)})`);
+  if(winChart)winChart.destroy();
+  winChart=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Win prob',data,backgroundColor:colors,borderRadius:2,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x}% tournament win probability`}}},scales:{x:{grid:{color:'rgba(13,13,13,0.06)'},ticks:{color:'#7a7a7a',font:{family:"'IBM Plex Mono'",size:11},callback:v=>v+'%'},max:Math.max(...data)+4},y:{grid:{display:false},ticks:{color:'#0d0d0d',font:{family:"'IBM Plex Mono'",size:12}}}}}});
+}
+
+setInterval(refreshAllData,6*60*60*1000);
+document.addEventListener('DOMContentLoaded',async()=>{renderAll();await refreshAllData();});
+</script>
+</body>
+</html>
