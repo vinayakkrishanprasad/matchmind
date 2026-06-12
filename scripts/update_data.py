@@ -2,23 +2,26 @@
 MatchMind Data Pipeline
 -----------------------
 Runs on a schedule (GitHub Actions cron).
-Fetches: match results, Reddit sentiment, news sentiment.
-Computes: team sentiment scores, match win probabilities.
-Writes:   data/matches.json, data/sentiment.json, data/probabilities.json
+Fetches: match results (football-data.org), Reddit sentiment (public JSON),
+         news sentiment (NewsAPI).
+Computes: team sentiment scores, match win probabilities, tournament probs.
+Writes:   data/matches.json, data/sentiment.json, data/probabilities.json,
+          data/tournament_probs.json, data/meta.json
 
-Required env vars (set in GitHub Actions secrets):
-  REDDIT_CLIENT_ID
-  REDDIT_CLIENT_SECRET
-  FOOTBALL_DATA_API_KEY   (football-data.org, free tier)
-  NEWS_API_KEY            (newsapi.org, free tier)
+Required env vars (set as GitHub Actions secrets):
+  FOOTBALL_DATA_API_KEY   — football-data.org free tier
+  NEWS_API_KEY            — newsapi.org free tier
+
+No Reddit API key needed — uses public JSON endpoints.
 """
 
 import os
 import json
 import math
+import time
+import random
 import datetime
 import requests
-import praw
 from collections import defaultdict
 from scipy.stats import poisson
 
@@ -36,7 +39,6 @@ TEAMS = [
     "Netherlands", "Ivory Coast", "Switzerland", "Qatar",
 ]
 
-# ELO ratings as of June 2026 (baseline — updated from match results)
 BASE_ELO = {
     "Spain": 2201, "Argentina": 2193, "France": 2187,
     "England": 2169, "Brazil": 2158, "Germany": 2155,
@@ -50,211 +52,231 @@ BASE_ELO = {
     "Ivory Coast": 1991,
 }
 
-# Attack/defense parameters (Dixon-Coles estimates, updated each run)
-# Format: {team: {"attack": float, "defense": float}}
-TEAM_PARAMS_FILE = "data/team_params.json"
-MATCHES_FILE = "data/matches.json"
-SENTIMENT_FILE = "data/sentiment.json"
-PROBABILITIES_FILE = "data/probabilities.json"
-META_FILE = "data/meta.json"
+TEAM_PARAMS_FILE  = "data/team_params.json"
+MATCHES_FILE      = "data/matches.json"
+SENTIMENT_FILE    = "data/sentiment.json"
+PROBABILITIES_FILE= "data/probabilities.json"
+META_FILE         = "data/meta.json"
+TOURNEY_FILE      = "data/tournament_probs.json"
 
-MONTE_CARLO_RUNS = 10_000
+MONTE_CARLO_RUNS  = 10_000
 
+# Public Reddit JSON — no auth required
+REDDIT_SUBREDDITS = ["soccer", "worldcup", "FIFA"]
+REDDIT_SORTS      = ["new", "hot"]
+
+# Rotating user agents to avoid 429s
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0",
+]
 
 # ---------------------------------------------------------------------------
-# 1. FETCH MATCH RESULTS
+# UTILITIES
+# ---------------------------------------------------------------------------
+
+def load_json(path, default=None):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default if default is not None else {}
+
+def save_json(path, data):
+    os.makedirs(os.path.dirname(path) if os.path.dirname(path) else ".", exist_ok=True)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2, default=str)
+
+def get_headers():
+    return {
+        "User-Agent": random.choice(USER_AGENTS),
+        "Accept": "application/json",
+    }
+
+# ---------------------------------------------------------------------------
+# 1. FETCH MATCH RESULTS (football-data.org)
 # ---------------------------------------------------------------------------
 
 def fetch_match_results():
-    """
-    Pull live match results from football-data.org.
-    Free tier covers World Cup matches.
-    """
     api_key = os.environ.get("FOOTBALL_DATA_API_KEY", "")
-    headers = {"X-Auth-Token": api_key}
+    if not api_key:
+        print("[matches] No API key — using cached data")
+        return load_json(MATCHES_FILE, default=[])
 
-    # Competition ID 2000 = FIFA World Cup on football-data.org
     url = "https://api.football-data.org/v4/competitions/2000/matches"
-
     try:
-        resp = requests.get(url, headers=headers, timeout=10)
+        resp = requests.get(url, headers={"X-Auth-Token": api_key}, timeout=10)
         resp.raise_for_status()
         raw = resp.json()
     except Exception as e:
-        print(f"[match fetch] Error: {e} — using cached data")
+        print(f"[matches] Error: {e} — using cached")
         return load_json(MATCHES_FILE, default=[])
 
     matches = []
     for m in raw.get("matches", []):
-        status = m.get("status", "")
-        home = m["homeTeam"]["name"]
-        away = m["awayTeam"]["name"]
-        score = m.get("score", {})
-        full = score.get("fullTime", {})
-
+        full = m.get("score", {}).get("fullTime", {})
         matches.append({
-            "id": m["id"],
-            "date": m["utcDate"][:10],
-            "group": m.get("group", ""),
-            "stage": m.get("stage", ""),
-            "home": home,
-            "away": away,
-            "status": status,
+            "id":         m["id"],
+            "date":       m["utcDate"][:10],
+            "group":      m.get("group", ""),
+            "stage":      m.get("stage", ""),
+            "home":       m["homeTeam"]["name"],
+            "away":       m["awayTeam"]["name"],
+            "status":     m.get("status", ""),
             "home_score": full.get("home"),
             "away_score": full.get("away"),
         })
 
     save_json(MATCHES_FILE, matches)
-    print(f"[match fetch] {len(matches)} matches fetched")
+    print(f"[matches] {len(matches)} matches fetched")
     return matches
 
-
 # ---------------------------------------------------------------------------
-# 2. FETCH REDDIT SENTIMENT
+# 2. REDDIT SENTIMENT — public JSON endpoints, no API key
 # ---------------------------------------------------------------------------
 
-def get_reddit_client():
-    return praw.Reddit(
-        client_id=os.environ.get("REDDIT_CLIENT_ID", ""),
-        client_secret=os.environ.get("REDDIT_CLIENT_SECRET", ""),
-        user_agent="MatchMind/1.0 (research project)"
-    )
+POSITIVE_WORDS = {
+    "great","brilliant","amazing","excellent","wonderful","fantastic","strong",
+    "dominant","clinical","sharp","class","quality","win","goal","score",
+    "victory","impressive","confident","dangerous","solid","consistent",
+    "creative","pace","depth","unlocked","deserved","superb","stunning",
+}
+NEGATIVE_WORDS = {
+    "poor","awful","terrible","weak","slow","sloppy","injury","suspended",
+    "red card","struggle","concern","doubt","worried","disappointing","flat",
+    "disjointed","crisis","collapse","ban","chaos","disaster","error",
+    "mistake","loss","eliminated","overrated","boring","pathetic",
+}
 
+TEAM_ALIASES = {
+    "usa": "USA", "usmnt": "USA", "united states": "USA", "america": "USA",
+    "el tri": "Mexico", "tri": "Mexico",
+    "korea": "South Korea", "bafana": "South Africa",
+    "les bleus": "France", "albiceleste": "Argentina",
+    "selecao": "Brazil", "seleção": "Brazil",
+    "three lions": "England", "czech": "Czechia",
+    "die mannschaft": "Germany", "oranje": "Netherlands",
+    "socceroos": "Australia",
+}
 
-def simple_sentiment(text: str) -> float:
-    """
-    Lightweight lexicon-based sentiment scorer.
-    Returns a float in [-1, 1].
-    Replace with a transformer model for production.
-    """
-    positive_words = {
-        "great", "brilliant", "amazing", "excellent", "wonderful", "fantastic",
-        "strong", "dominant", "clinical", "sharp", "class", "quality", "win",
-        "goal", "score", "victory", "impressive", "confident", "dangerous",
-        "solid", "consistent", "unlocked", "creative", "pace", "depth",
-    }
-    negative_words = {
-        "poor", "awful", "terrible", "weak", "slow", "sloppy", "injury",
-        "suspended", "red card", "struggle", "concern", "doubt", "worried",
-        "disappointing", "flat", "disjointed", "crisis", "collapse", "ban",
-        "chaos", "disaster", "error", "mistake", "loss", "eliminated",
-    }
-    text_lower = text.lower()
-    pos = sum(1 for w in positive_words if w in text_lower)
-    neg = sum(1 for w in negative_words if w in text_lower)
+def simple_sentiment(text):
+    t = text.lower()
+    pos = sum(1 for w in POSITIVE_WORDS if w in t)
+    neg = sum(1 for w in NEGATIVE_WORDS if w in t)
     total = pos + neg
-    if total == 0:
-        return 0.0
-    return round((pos - neg) / total, 3)
+    return round((pos - neg) / total, 3) if total else 0.0
 
+def resolve_teams(text):
+    t = text.lower()
+    found = set()
+    for alias, canonical in TEAM_ALIASES.items():
+        if alias in t:
+            found.add(canonical)
+    for team in TEAMS:
+        if team.lower() in t:
+            found.add(team)
+    return list(found)
 
-def resolve_team(text: str, teams: list) -> list:
+def fetch_subreddit_posts(subreddit, sort="new", limit=100):
+    """Fetch posts from a public subreddit JSON endpoint."""
+    url = f"https://www.reddit.com/r/{subreddit}/{sort}.json?limit={limit}&t=day"
+    try:
+        time.sleep(random.uniform(1.5, 3.0))   # polite delay
+        resp = requests.get(url, headers=get_headers(), timeout=12)
+        if resp.status_code == 429:
+            print(f"[reddit] Rate limited on r/{subreddit}, skipping")
+            return []
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("data", {}).get("children", [])
+    except Exception as e:
+        print(f"[reddit] Error on r/{subreddit}/{sort}: {e}")
+        return []
+
+def fetch_reddit_sentiment():
     """
-    Simple named-entity resolution: find which teams are mentioned.
+    Pull posts from public Reddit JSON (no API key).
+    Returns {team: {reddit_score, post_count, sample_post}}
     """
-    text_lower = text.lower()
-    found = []
-    aliases = {
-        "usa": "USA", "united states": "USA", "usmnt": "USA",
-        "korea": "South Korea", "bafana": "South Africa",
-        "tri": "Mexico", "el tri": "Mexico",
-        "les bleus": "France", "albiceleste": "Argentina",
-        "seleção": "Brazil", "selecao": "Brazil",
-        "three lions": "England", "czechia": "Czechia",
-        "czech": "Czechia",
-    }
-    for alias, canonical in aliases.items():
-        if alias in text_lower:
-            found.append(canonical)
-    for team in teams:
-        if team.lower() in text_lower:
-            found.append(team)
-    return list(set(found))
+    cutoff_hours = 48
+    cutoff = datetime.datetime.utcnow() - datetime.timedelta(hours=cutoff_hours)
 
+    team_scores  = defaultdict(list)
+    team_posts   = defaultdict(int)
+    team_samples = {}
 
-def fetch_reddit_sentiment(teams: list) -> dict:
-    """
-    Pull posts from r/soccer and r/worldcup from the past 48 hours.
-    Attribute sentiment to mentioned teams.
-    Returns {team: {"score": float, "post_count": int, "sample": str}}
-    """
-    reddit = get_reddit_client()
-    subreddits = ["soccer", "worldcup"]
-    cutoff = datetime.datetime.utcnow() - datetime.timedelta(hours=48)
+    for sub in REDDIT_SUBREDDITS:
+        for sort in REDDIT_SORTS:
+            posts = fetch_subreddit_posts(sub, sort=sort, limit=100)
+            print(f"[reddit] r/{sub}/{sort} — {len(posts)} posts")
 
-    team_scores = defaultdict(list)
-    team_posts = defaultdict(int)
-    team_samples = defaultdict(str)
+            for child in posts:
+                post = child.get("data", {})
+                created = datetime.datetime.utcfromtimestamp(post.get("created_utc", 0))
+                if created < cutoff:
+                    continue
 
-    for sub_name in subreddits:
-        sub = reddit.subreddit(sub_name)
-        try:
-            posts = list(sub.new(limit=200))
-        except Exception as e:
-            print(f"[reddit] Error on r/{sub_name}: {e}")
-            continue
+                title   = post.get("title", "")
+                body    = post.get("selftext", "")
+                text    = f"{title} {body}"
+                score   = post.get("score", 1)
 
-        for post in posts:
-            created = datetime.datetime.utcfromtimestamp(post.created_utc)
-            if created < cutoff:
-                continue
+                mentioned = resolve_teams(text)
+                if not mentioned:
+                    continue
 
-            text = f"{post.title} {post.selftext}"
-            mentioned = resolve_team(text, teams)
-            if not mentioned:
-                continue
+                sentiment  = simple_sentiment(text)
+                weight     = math.log(max(score, 1) + 1)
 
-            score = simple_sentiment(text)
-            # Weight by karma (log scale, floor at 1)
-            weight = math.log(max(post.score, 1) + 1)
-
-            for team in mentioned:
-                team_scores[team].append(score * weight)
-                team_posts[team] += 1
-                if not team_samples[team] and post.title:
-                    team_samples[team] = post.title[:120]
+                for team in mentioned:
+                    team_scores[team].append(sentiment * weight)
+                    team_posts[team] += 1
+                    if team not in team_samples and title:
+                        team_samples[team] = title[:120]
 
     result = {}
-    for team in teams:
+    for team in TEAMS:
         scores = team_scores[team]
-        if scores:
-            weighted_avg = round(sum(scores) / len(scores), 3)
-        else:
-            weighted_avg = 0.0
+        avg    = round(sum(scores) / len(scores), 3) if scores else 0.0
         result[team] = {
-            "reddit_score": weighted_avg,
-            "post_count": team_posts[team],
-            "sample_post": team_samples.get(team, ""),
+            "reddit_score": avg,
+            "post_count":   team_posts[team],
+            "sample_post":  team_samples.get(team, ""),
         }
 
-    print(f"[reddit] Sentiment computed for {len([t for t in result if result[t]['post_count'] > 0])} teams")
+    active = sum(1 for t in result if result[t]["post_count"] > 0)
+    print(f"[reddit] Sentiment computed for {active}/{len(TEAMS)} teams")
     return result
 
-
 # ---------------------------------------------------------------------------
-# 3. FETCH NEWS SENTIMENT
+# 3. NEWS SENTIMENT (NewsAPI)
 # ---------------------------------------------------------------------------
 
-def fetch_news_sentiment(teams: list) -> dict:
-    """
-    Pull headlines from NewsAPI for each team.
-    Returns {team: {"news_score": float, "article_count": int}}
-    """
+def fetch_news_sentiment():
     api_key = os.environ.get("NEWS_API_KEY", "")
-    base_url = "https://newsapi.org/v2/everything"
-    cutoff = (datetime.datetime.utcnow() - datetime.timedelta(hours=48)).strftime("%Y-%m-%dT%H:%M:%S")
+    if not api_key:
+        print("[news] No API key — skipping")
+        return {t: {"news_score": 0.0, "article_count": 0} for t in TEAMS}
 
+    cutoff = (datetime.datetime.utcnow() - datetime.timedelta(hours=48)).strftime("%Y-%m-%dT%H:%M:%S")
     result = {}
-    for team in teams:
+
+    for team in TEAMS:
         try:
-            resp = requests.get(base_url, params={
-                "q": f'"{team}" World Cup 2026',
-                "from": cutoff,
-                "language": "en",
-                "sortBy": "relevancy",
-                "pageSize": 20,
-                "apiKey": api_key,
-            }, timeout=10)
+            time.sleep(0.2)   # stay within free tier rate limit
+            resp = requests.get(
+                "https://newsapi.org/v2/everything",
+                params={
+                    "q":        f'"{team}" "World Cup"',
+                    "from":     cutoff,
+                    "language": "en",
+                    "sortBy":   "relevancy",
+                    "pageSize": 20,
+                    "apiKey":   api_key,
+                },
+                timeout=10,
+            )
             resp.raise_for_status()
             articles = resp.json().get("articles", [])
         except Exception as e:
@@ -262,325 +284,191 @@ def fetch_news_sentiment(teams: list) -> dict:
             result[team] = {"news_score": 0.0, "article_count": 0}
             continue
 
-        scores = []
-        for art in articles:
-            text = f"{art.get('title', '')} {art.get('description', '')}"
-            scores.append(simple_sentiment(text))
-
+        scores = [simple_sentiment(f"{a.get('title','')} {a.get('description','')}") for a in articles]
         result[team] = {
-            "news_score": round(sum(scores) / len(scores), 3) if scores else 0.0,
+            "news_score":    round(sum(scores) / len(scores), 3) if scores else 0.0,
             "article_count": len(scores),
         }
 
-    print(f"[news] News sentiment fetched for {len(teams)} teams")
+    print(f"[news] Done — {len(TEAMS)} teams")
     return result
-
 
 # ---------------------------------------------------------------------------
 # 4. COMBINE SENTIMENT
 # ---------------------------------------------------------------------------
 
-def combine_sentiment(reddit: dict, news: dict, teams: list) -> dict:
-    """
-    Merge Reddit and news sentiment into a single score per team.
-    Reddit weighted 0.65, news 0.35 (Reddit is higher signal for fan sentiment).
-    Final score clipped to [-1, 1].
-    """
+def combine_sentiment(reddit, news):
     combined = {}
-    for team in teams:
+    for team in TEAMS:
         r = reddit.get(team, {}).get("reddit_score", 0.0)
         n = news.get(team, {}).get("news_score", 0.0)
-        merged = round(0.65 * r + 0.35 * n, 3)
-        merged = max(-1.0, min(1.0, merged))
-
+        merged = round(max(-1.0, min(1.0, 0.65 * r + 0.35 * n)), 3)
         combined[team] = {
-            "sentiment_score": merged,
-            "reddit_score": r,
-            "news_score": n,
-            "post_count": reddit.get(team, {}).get("post_count", 0),
-            "article_count": news.get(team, {}).get("article_count", 0),
-            "sample_post": reddit.get(team, {}).get("sample_post", ""),
-            "updated_at": datetime.datetime.utcnow().isoformat() + "Z",
+            "sentiment_score":  merged,
+            "reddit_score":     r,
+            "news_score":       n,
+            "post_count":       reddit.get(team, {}).get("post_count", 0),
+            "article_count":    news.get(team, {}).get("article_count", 0),
+            "sample_post":      reddit.get(team, {}).get("sample_post", ""),
+            "updated_at":       datetime.datetime.utcnow().isoformat() + "Z",
         }
-
     save_json(SENTIMENT_FILE, combined)
-    print(f"[sentiment] Combined scores saved")
+    print("[sentiment] Combined scores saved")
     return combined
 
-
 # ---------------------------------------------------------------------------
-# 5. COMPUTE MATCH PROBABILITIES (Poisson + sentiment adjustment)
+# 5. TEAM PARAMETERS (Dixon-Coles style, updated from results)
 # ---------------------------------------------------------------------------
 
-def load_team_params() -> dict:
-    """Load or initialise Dixon-Coles parameters."""
-    defaults = {team: {"attack": 1.0, "defense": 1.0} for team in TEAMS}
-    stored = load_json(TEAM_PARAMS_FILE, default=defaults)
-    # Fill in any missing teams
-    for team in TEAMS:
-        if team not in stored:
-            stored[team] = {"attack": 1.0, "defense": 1.0}
+def load_team_params():
+    defaults = {t: {"attack": 1.0, "defense": 1.0} for t in TEAMS}
+    stored   = load_json(TEAM_PARAMS_FILE, default=defaults)
+    for t in TEAMS:
+        if t not in stored:
+            stored[t] = {"attack": 1.0, "defense": 1.0}
     return stored
 
-
-def update_team_params(params: dict, matches: list) -> dict:
-    """
-    Naive Elo-like parameter update from finished matches.
-    For a proper Dixon-Coles fit, replace with scipy.optimize.minimize.
-    """
-    HOME_ADVANTAGE = 1.1
-
+def update_team_params(params, matches):
+    HOME_ADV = 1.1
+    LR       = 0.05
     for m in matches:
-        if m["status"] != "FINISHED":
+        if m["status"] != "FINISHED" or m["home_score"] is None:
             continue
-        home, away = m["home"], m["away"]
+        h, a   = m["home"], m["away"]
         hg, ag = m["home_score"], m["away_score"]
-        if hg is None or ag is None:
+        if h not in params or a not in params:
             continue
-        if home not in params or away not in params:
-            continue
-
-        # Simple gradient nudge
-        lr = 0.05
-        expected_home = params[home]["attack"] * params[away]["defense"] * HOME_ADVANTAGE
-        expected_away = params[away]["attack"] * params[home]["defense"]
-
-        params[home]["attack"] += lr * (hg - expected_home)
-        params[away]["defense"] -= lr * (hg - expected_home)
-        params[away]["attack"] += lr * (ag - expected_away)
-        params[home]["defense"] -= lr * (ag - expected_away)
-
-        # Keep positive
-        for team in [home, away]:
-            params[team]["attack"] = max(0.3, params[team]["attack"])
-            params[team]["defense"] = max(0.3, params[team]["defense"])
-
+        exp_h = params[h]["attack"] * params[a]["defense"] * HOME_ADV
+        exp_a = params[a]["attack"] * params[h]["defense"]
+        params[h]["attack"]  += LR * (hg - exp_h)
+        params[a]["defense"] -= LR * (hg - exp_h)
+        params[a]["attack"]  += LR * (ag - exp_a)
+        params[h]["defense"] -= LR * (ag - exp_a)
+        for t in [h, a]:
+            params[t]["attack"]  = max(0.3, params[t]["attack"])
+            params[t]["defense"] = max(0.3, params[t]["defense"])
     save_json(TEAM_PARAMS_FILE, params)
     return params
 
+# ---------------------------------------------------------------------------
+# 6. MATCH PROBABILITIES
+# ---------------------------------------------------------------------------
 
-def sentiment_adjustment(sentiment_score: float, factor: float = 0.08) -> float:
-    """
-    Map sentiment [-1, 1] to a multiplicative adjustment [1-factor, 1+factor].
-    Default factor = 0.08 means sentiment can shift xG by up to ±8%.
-    """
-    return 1.0 + factor * sentiment_score
+def sentiment_adj(score, factor=0.08):
+    return 1.0 + factor * score
 
-
-def match_probabilities(home: str, away: str, params: dict, sentiment: dict) -> dict:
-    """
-    Compute win/draw/loss probabilities for a single match using Poisson model
-    with sentiment adjustment on expected goals.
-    """
-    HOME_ADVANTAGE = 1.1
+def match_probs(home, away, params, sentiment):
+    HOME_ADV  = 1.1
     MAX_GOALS = 8
+    h_xg = params[home]["attack"] * params[away]["defense"] * HOME_ADV
+    a_xg = params[away]["attack"] * params[home]["defense"]
+    h_xg *= sentiment_adj(sentiment.get(home, {}).get("sentiment_score", 0.0))
+    a_xg *= sentiment_adj(sentiment.get(away, {}).get("sentiment_score", 0.0))
 
-    base_home_xg = params[home]["attack"] * params[away]["defense"] * HOME_ADVANTAGE
-    base_away_xg = params[away]["attack"] * params[home]["defense"]
-
-    # Sentiment adjustments
-    home_adj = sentiment_adjustment(sentiment.get(home, {}).get("sentiment_score", 0.0))
-    away_adj = sentiment_adjustment(sentiment.get(away, {}).get("sentiment_score", 0.0))
-
-    home_xg = base_home_xg * home_adj
-    away_xg = base_away_xg * away_adj
-
-    # Compute scoreline probabilities
-    home_win = draw = away_win = 0.0
+    hw = dr = aw = 0.0
     for hg in range(MAX_GOALS + 1):
         for ag in range(MAX_GOALS + 1):
-            p = poisson.pmf(hg, home_xg) * poisson.pmf(ag, away_xg)
-            if hg > ag:
-                home_win += p
-            elif hg == ag:
-                draw += p
-            else:
-                away_win += p
-
-    # Normalise floating point errors
-    total = home_win + draw + away_win
+            p = poisson.pmf(hg, h_xg) * poisson.pmf(ag, a_xg)
+            if hg > ag:   hw += p
+            elif hg == ag: dr += p
+            else:          aw += p
+    total = hw + dr + aw
     return {
-        "home_win": round(home_win / total, 4),
-        "draw": round(draw / total, 4),
-        "away_win": round(away_win / total, 4),
-        "home_xg": round(home_xg, 2),
-        "away_xg": round(away_xg, 2),
+        "home_win":       round(hw / total, 4),
+        "draw":           round(dr / total, 4),
+        "away_win":       round(aw / total, 4),
+        "home_xg":        round(h_xg, 2),
+        "away_xg":        round(a_xg, 2),
         "home_sentiment": round(sentiment.get(home, {}).get("sentiment_score", 0.0), 3),
         "away_sentiment": round(sentiment.get(away, {}).get("sentiment_score", 0.0), 3),
     }
 
-
-def compute_all_probabilities(matches: list, params: dict, sentiment: dict) -> list:
-    """
-    Add probability estimates to all upcoming (SCHEDULED/TIMED) matches.
-    """
+def compute_all_probs(matches, params, sentiment):
     enriched = []
     for m in matches:
         entry = dict(m)
-        home, away = m["home"], m["away"]
-
         if m["status"] in ("SCHEDULED", "TIMED", "IN_PLAY"):
-            if home in params and away in params:
-                probs = match_probabilities(home, away, params, sentiment)
-                entry.update(probs)
-            else:
-                entry.update({"home_win": None, "draw": None, "away_win": None})
-
+            h, a = m["home"], m["away"]
+            if h in params and a in params:
+                entry.update(match_probs(h, a, params, sentiment))
         enriched.append(entry)
-
     save_json(PROBABILITIES_FILE, enriched)
-    print(f"[probabilities] {len(enriched)} matches processed")
+    print(f"[probs] {len(enriched)} matches processed")
     return enriched
 
-
 # ---------------------------------------------------------------------------
-# 6. TOURNAMENT SIMULATION (Monte Carlo)
+# 7. TOURNAMENT SIMULATION (Monte Carlo)
 # ---------------------------------------------------------------------------
 
-def simulate_tournament(matches: list, params: dict, sentiment: dict, runs: int = MONTE_CARLO_RUNS) -> dict:
-    """
-    Monte Carlo bracket simulation.
-    Returns {team: win_probability} for all teams.
-    """
-    import random
+def simulate_tournament(params, sentiment, runs=MONTE_CARLO_RUNS):
+    import random as rnd
+    contenders = [
+        "France","Argentina","Brazil","Spain","England","Germany",
+        "Portugal","Netherlands","Mexico","South Korea","USA","Morocco",
+        "Belgium","Japan","Croatia","Switzerland",
+    ]
 
-    # Build group standings from finished matches
-    standings = defaultdict(lambda: {"pts": 0, "gf": 0, "ga": 0})
-    group_teams = defaultdict(set)
+    def sim_match(a, b):
+        if a not in params or b not in params:
+            return rnd.choice([a, b])
+        p = match_probs(a, b, params, sentiment)
+        r = rnd.random()
+        if r < p["home_win"]: return a
+        if r < p["home_win"] + p["draw"]: return rnd.choice([a, b])
+        return b
 
-    for m in matches:
-        if m["status"] != "FINISHED" or m["home_score"] is None:
-            continue
-        home, away = m["home"], m["away"]
-        hg, ag = m["home_score"], m["away_score"]
-        grp = m.get("group", "A")
-
-        group_teams[grp].add(home)
-        group_teams[grp].add(away)
-        standings[home]["gf"] += hg
-        standings[home]["ga"] += ag
-        standings[away]["gf"] += ag
-        standings[away]["ga"] += hg
-
-        if hg > ag:
-            standings[home]["pts"] += 3
-        elif hg == ag:
-            standings[home]["pts"] += 1
-            standings[away]["pts"] += 1
-        else:
-            standings[away]["pts"] += 3
-
-    def simulate_match(team_a: str, team_b: str) -> str:
-        """Simulate a single match, return winner."""
-        if team_a not in params or team_b not in params:
-            return random.choice([team_a, team_b])
-        probs = match_probabilities(team_a, team_b, params, sentiment)
-        r = random.random()
-        if r < probs["home_win"]:
-            return team_a
-        elif r < probs["home_win"] + probs["draw"]:
-            # In knockout: extra time / penalties — coin flip
-            return random.choice([team_a, team_b])
-        else:
-            return team_b
-
-    win_counts = defaultdict(int)
-
+    wins = defaultdict(int)
     for _ in range(runs):
-        # Simplified: simulate knockout from current known qualifiers
-        # In production: resolve group stage first, then bracket
-        # For now, use top contenders as the simulated field
-        contenders = [
-            "France", "Argentina", "Brazil", "Spain",
-            "England", "Germany", "Portugal", "Netherlands",
-            "Mexico", "South Korea", "USA", "Morocco",
-            "Belgium", "Japan", "Croatia", "Switzerland",
-        ]
-        random.shuffle(contenders)
-
-        # Simulate bracket rounds
         field = contenders[:]
+        rnd.shuffle(field)
         while len(field) > 1:
-            next_round = []
+            next_r = []
             for i in range(0, len(field), 2):
                 if i + 1 < len(field):
-                    winner = simulate_match(field[i], field[i+1])
-                    next_round.append(winner)
+                    next_r.append(sim_match(field[i], field[i+1]))
                 else:
-                    next_round.append(field[i])
-            field = next_round
-
+                    next_r.append(field[i])
+            field = next_r
         if field:
-            win_counts[field[0]] += 1
+            wins[field[0]] += 1
 
-    win_probs = {team: round(count / runs, 4) for team, count in win_counts.items()}
-    save_json("data/tournament_probs.json", win_probs)
-    print(f"[simulation] Tournament win probabilities computed over {runs} runs")
-    return win_probs
-
-
-# ---------------------------------------------------------------------------
-# UTILITIES
-# ---------------------------------------------------------------------------
-
-def load_json(path: str, default=None):
-    try:
-        with open(path, "r") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return default if default is not None else {}
-
-
-def save_json(path: str, data):
-    os.makedirs(os.path.dirname(path) if os.path.dirname(path) else ".", exist_ok=True)
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2, default=str)
-
+    probs = {t: round(c / runs, 4) for t, c in wins.items()}
+    save_json(TOURNEY_FILE, probs)
+    print(f"[sim] Tournament probs from {runs} runs saved")
+    return probs
 
 # ---------------------------------------------------------------------------
 # MAIN
 # ---------------------------------------------------------------------------
 
 def main():
-    print(f"\n{'='*50}")
-    print(f"MatchMind pipeline starting — {datetime.datetime.utcnow().isoformat()}Z")
-    print(f"{'='*50}\n")
+    print(f"\n{'='*52}")
+    print(f"MatchMind pipeline — {datetime.datetime.utcnow().isoformat()}Z")
+    print(f"{'='*52}\n")
 
-    # 1. Match results
-    matches = fetch_match_results()
+    matches  = fetch_match_results()
+    params   = update_team_params(load_team_params(), matches)
+    reddit   = fetch_reddit_sentiment()
+    news     = fetch_news_sentiment()
+    sentiment= combine_sentiment(reddit, news)
+    probs    = compute_all_probs(matches, params, sentiment)
+    t_probs  = simulate_tournament(params, sentiment)
 
-    # 2. Team parameters (update from results)
-    params = load_team_params()
-    params = update_team_params(params, matches)
+    finished = sum(1 for m in matches if m["status"] == "FINISHED")
+    save_json(META_FILE, {
+        "last_updated":    datetime.datetime.utcnow().isoformat() + "Z",
+        "matches_total":   len(matches),
+        "matches_finished":finished,
+        "teams_tracked":   len(TEAMS),
+        "monte_carlo_runs":MONTE_CARLO_RUNS,
+        "reddit_method":   "public_json",
+    })
 
-    # 3. Sentiment
-    reddit_sentiment = fetch_reddit_sentiment(TEAMS)
-    news_sentiment = fetch_news_sentiment(TEAMS)
-    sentiment = combine_sentiment(reddit_sentiment, news_sentiment, TEAMS)
-
-    # 4. Match probabilities
-    probabilities = compute_all_probabilities(matches, params, sentiment)
-
-    # 5. Tournament simulation
-    tournament_probs = simulate_tournament(matches, params, sentiment)
-
-    # 6. Meta file (used by the website to show last updated time)
-    meta = {
-        "last_updated": datetime.datetime.utcnow().isoformat() + "Z",
-        "matches_total": len(matches),
-        "matches_finished": sum(1 for m in matches if m["status"] == "FINISHED"),
-        "teams_tracked": len(TEAMS),
-        "monte_carlo_runs": MONTE_CARLO_RUNS,
-    }
-    save_json(META_FILE, meta)
-
-    print(f"\nPipeline complete. Data written to data/")
-    print(f"  matches.json         {len(matches)} matches")
-    print(f"  sentiment.json       {len(TEAMS)} teams")
-    print(f"  probabilities.json   {len(probabilities)} matches with probs")
-    print(f"  tournament_probs.json {len(tournament_probs)} teams")
-    print(f"  meta.json            {meta['last_updated']}")
-
+    print(f"\nDone. Written to data/")
+    print(f"  matches.json          {len(matches)}")
+    print(f"  sentiment.json        {len(TEAMS)} teams")
+    print(f"  probabilities.json    {len(probs)}")
+    print(f"  tournament_probs.json {len(t_probs)} teams")
 
 if __name__ == "__main__":
     main()
