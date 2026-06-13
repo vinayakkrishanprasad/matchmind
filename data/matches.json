@@ -28,8 +28,8 @@
     "stage": "GROUP_STAGE",
     "home": "Canada",
     "away": "Bosnia-Herzegovina",
-    "status": "IN_PLAY",
-    "home_score": 0,
+    "status": "FINISHED",
+    "home_score": 1,
     "away_score": 1
   },
   {
@@ -39,9 +39,9 @@
     "stage": "GROUP_STAGE",
     "home": "United States",
     "away": "Paraguay",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 3,
+    "away_score": 0
   },
   {
     "id": 537334,
