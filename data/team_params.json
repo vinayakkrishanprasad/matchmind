@@ -1,19 +1,19 @@
 {
   "Mexico": {
-    "attack": 1.3762732428451412,
-    "defense": 1.3832172589683933
+    "attack": 1.429060228275607,
+    "defense": 1.4258744855898309
   },
   "South Africa": {
-    "attack": 0.6167827410316066,
-    "defense": 0.6237267571548589
+    "attack": 0.574125514410169,
+    "defense": 0.570939771724393
   },
   "South Korea": {
-    "attack": 1.3762732428451412,
+    "attack": 1.429060228275607,
     "defense": 1.0
   },
   "Czechia": {
     "attack": 1.0,
-    "defense": 0.6237267571548589
+    "defense": 0.570939771724393
   },
   "USA": {
     "attack": 1.0,
@@ -24,20 +24,20 @@
     "defense": 1.0
   },
   "Australia": {
-    "attack": 1.0,
-    "defense": 1.0
+    "attack": 1.045,
+    "defense": 1.05
   },
   "Turkey": {
-    "attack": 1.0,
-    "defense": 1.0
+    "attack": 0.95,
+    "defense": 0.955
   },
   "Brazil": {
-    "attack": 0.995,
+    "attack": 0.990001375,
     "defense": 1.0
   },
   "Morocco": {
     "attack": 1.0,
-    "defense": 1.005
+    "defense": 1.009998625
   },
   "Croatia": {
     "attack": 1.0,
@@ -105,10 +105,10 @@
   },
   "Switzerland": {
     "attack": 1.0,
-    "defense": 1.005
+    "defense": 1.009998625
   },
   "Qatar": {
-    "attack": 0.995,
+    "attack": 0.990001375,
     "defense": 1.0
   }
 }
