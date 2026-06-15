@@ -105,9 +105,9 @@
     "stage": "GROUP_STAGE",
     "home": "Netherlands",
     "away": "Japan",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 2,
+    "away_score": 2
   },
   {
     "id": 537352,
@@ -116,9 +116,9 @@
     "stage": "GROUP_STAGE",
     "home": "Ivory Coast",
     "away": "Ecuador",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 1,
+    "away_score": 0
   },
   {
     "id": 537358,
@@ -127,9 +127,9 @@
     "stage": "GROUP_STAGE",
     "home": "Sweden",
     "away": "Tunisia",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 1,
+    "away_score": 0
   },
   {
     "id": 537369,
