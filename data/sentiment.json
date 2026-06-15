@@ -1,282 +1,282 @@
 {
   "Mexico": {
-    "sentiment_score": 0.258,
+    "sentiment_score": 0.235,
     "reddit_score": 0.0,
-    "news_score": 0.258,
+    "news_score": 0.235,
     "post_count": 0,
-    "article_count": 17,
+    "article_count": 16,
     "scored_articles": 11,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806162Z"
+    "updated_at": "2026-06-15T20:47:34.701757Z"
   },
   "South Africa": {
-    "sentiment_score": 0.046,
+    "sentiment_score": 0.25,
     "reddit_score": 0.0,
-    "news_score": 0.046,
+    "news_score": 0.25,
     "post_count": 0,
     "article_count": 19,
     "scored_articles": 12,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806173Z"
+    "updated_at": "2026-06-15T20:47:34.701770Z"
   },
   "South Korea": {
-    "sentiment_score": 0.311,
+    "sentiment_score": 0.368,
     "reddit_score": 0.0,
-    "news_score": 0.311,
+    "news_score": 0.368,
     "post_count": 0,
     "article_count": 18,
-    "scored_articles": 11,
+    "scored_articles": 12,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806177Z"
+    "updated_at": "2026-06-15T20:47:34.701774Z"
   },
   "Czechia": {
-    "sentiment_score": 0.159,
+    "sentiment_score": 0.239,
     "reddit_score": 0.0,
-    "news_score": 0.159,
+    "news_score": 0.239,
     "post_count": 0,
     "article_count": 20,
-    "scored_articles": 16,
+    "scored_articles": 15,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806181Z"
+    "updated_at": "2026-06-15T20:47:34.701777Z"
   },
   "USA": {
-    "sentiment_score": 0.262,
+    "sentiment_score": 0.096,
     "reddit_score": 0.0,
-    "news_score": 0.262,
+    "news_score": 0.096,
     "post_count": 0,
-    "article_count": 20,
+    "article_count": 19,
     "scored_articles": 16,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806186Z"
+    "updated_at": "2026-06-15T20:47:34.701781Z"
   },
   "Paraguay": {
-    "sentiment_score": 0.41,
+    "sentiment_score": 0.048,
     "reddit_score": 0.0,
-    "news_score": 0.41,
+    "news_score": 0.048,
+    "post_count": 0,
+    "article_count": 17,
+    "scored_articles": 14,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701785Z"
+  },
+  "Australia": {
+    "sentiment_score": 0.518,
+    "reddit_score": 0.0,
+    "news_score": 0.518,
+    "post_count": 0,
+    "article_count": 17,
+    "scored_articles": 16,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701788Z"
+  },
+  "Turkey": {
+    "sentiment_score": 0.735,
+    "reddit_score": 0.0,
+    "news_score": 0.735,
+    "post_count": 0,
+    "article_count": 18,
+    "scored_articles": 14,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701796Z"
+  },
+  "Brazil": {
+    "sentiment_score": 0.766,
+    "reddit_score": 0.0,
+    "news_score": 0.766,
+    "post_count": 0,
+    "article_count": 20,
+    "scored_articles": 18,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701801Z"
+  },
+  "Morocco": {
+    "sentiment_score": 0.679,
+    "reddit_score": 0.0,
+    "news_score": 0.679,
+    "post_count": 0,
+    "article_count": 20,
+    "scored_articles": 17,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701804Z"
+  },
+  "Croatia": {
+    "sentiment_score": 0.583,
+    "reddit_score": 0.0,
+    "news_score": 0.583,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 9,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701808Z"
+  },
+  "Belgium": {
+    "sentiment_score": 0.738,
+    "reddit_score": 0.0,
+    "news_score": 0.738,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 14,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701812Z"
+  },
+  "France": {
+    "sentiment_score": 0.489,
+    "reddit_score": 0.0,
+    "news_score": 0.489,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 15,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701815Z"
+  },
+  "Senegal": {
+    "sentiment_score": 0.674,
+    "reddit_score": 0.0,
+    "news_score": 0.674,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 11,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701818Z"
+  },
+  "Argentina": {
+    "sentiment_score": 0.485,
+    "reddit_score": 0.0,
+    "news_score": 0.485,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 11,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701821Z"
+  },
+  "Algeria": {
+    "sentiment_score": 0.472,
+    "reddit_score": 0.0,
+    "news_score": 0.472,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 9,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701824Z"
+  },
+  "Spain": {
+    "sentiment_score": 0.521,
+    "reddit_score": 0.0,
+    "news_score": 0.521,
+    "post_count": 0,
+    "article_count": 15,
+    "scored_articles": 12,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701827Z"
+  },
+  "Saudi Arabia": {
+    "sentiment_score": 0.233,
+    "reddit_score": 0.0,
+    "news_score": 0.233,
+    "post_count": 0,
+    "article_count": 16,
+    "scored_articles": 9,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701830Z"
+  },
+  "England": {
+    "sentiment_score": 0.683,
+    "reddit_score": 0.0,
+    "news_score": 0.683,
+    "post_count": 0,
+    "article_count": 18,
+    "scored_articles": 10,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701833Z"
+  },
+  "Ghana": {
+    "sentiment_score": 0.361,
+    "reddit_score": 0.0,
+    "news_score": 0.361,
+    "post_count": 0,
+    "article_count": 18,
+    "scored_articles": 9,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701835Z"
+  },
+  "Portugal": {
+    "sentiment_score": 0.353,
+    "reddit_score": 0.0,
+    "news_score": 0.353,
+    "post_count": 0,
+    "article_count": 17,
+    "scored_articles": 13,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701838Z"
+  },
+  "Colombia": {
+    "sentiment_score": 0.076,
+    "reddit_score": 0.0,
+    "news_score": 0.076,
+    "post_count": 0,
+    "article_count": 20,
+    "scored_articles": 13,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701842Z"
+  },
+  "Germany": {
+    "sentiment_score": 0.675,
+    "reddit_score": 0.0,
+    "news_score": 0.675,
+    "post_count": 0,
+    "article_count": 18,
+    "scored_articles": 15,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701845Z"
+  },
+  "Japan": {
+    "sentiment_score": 0.479,
+    "reddit_score": 0.0,
+    "news_score": 0.479,
+    "post_count": 0,
+    "article_count": 19,
+    "scored_articles": 12,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701848Z"
+  },
+  "Netherlands": {
+    "sentiment_score": 0.5,
+    "reddit_score": 0.0,
+    "news_score": 0.5,
+    "post_count": 0,
+    "article_count": 20,
+    "scored_articles": 15,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701851Z"
+  },
+  "Ivory Coast": {
+    "sentiment_score": 0.875,
+    "reddit_score": 0.0,
+    "news_score": 0.875,
+    "post_count": 0,
+    "article_count": 20,
+    "scored_articles": 15,
+    "sample_post": "",
+    "updated_at": "2026-06-15T20:47:34.701854Z"
+  },
+  "Switzerland": {
+    "sentiment_score": 0.609,
+    "reddit_score": 0.0,
+    "news_score": 0.609,
     "post_count": 0,
     "article_count": 18,
     "scored_articles": 16,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806190Z"
+    "updated_at": "2026-06-15T20:47:34.701857Z"
   },
-  "Australia": {
-    "sentiment_score": 0.537,
+  "Qatar": {
+    "sentiment_score": 0.368,
     "reddit_score": 0.0,
-    "news_score": 0.537,
+    "news_score": 0.368,
     "post_count": 0,
     "article_count": 19,
     "scored_articles": 17,
     "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806194Z"
-  },
-  "Turkey": {
-    "sentiment_score": 0.702,
-    "reddit_score": 0.0,
-    "news_score": 0.702,
-    "post_count": 0,
-    "article_count": 18,
-    "scored_articles": 13,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806201Z"
-  },
-  "Brazil": {
-    "sentiment_score": 0.655,
-    "reddit_score": 0.0,
-    "news_score": 0.655,
-    "post_count": 0,
-    "article_count": 20,
-    "scored_articles": 18,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806206Z"
-  },
-  "Morocco": {
-    "sentiment_score": 0.66,
-    "reddit_score": 0.0,
-    "news_score": 0.66,
-    "post_count": 0,
-    "article_count": 20,
-    "scored_articles": 18,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806209Z"
-  },
-  "Croatia": {
-    "sentiment_score": 0.775,
-    "reddit_score": 0.0,
-    "news_score": 0.775,
-    "post_count": 0,
-    "article_count": 19,
-    "scored_articles": 10,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806212Z"
-  },
-  "Belgium": {
-    "sentiment_score": 0.572,
-    "reddit_score": 0.0,
-    "news_score": 0.572,
-    "post_count": 0,
-    "article_count": 19,
-    "scored_articles": 15,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806216Z"
-  },
-  "France": {
-    "sentiment_score": 0.322,
-    "reddit_score": 0.0,
-    "news_score": 0.322,
-    "post_count": 0,
-    "article_count": 18,
-    "scored_articles": 15,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806219Z"
-  },
-  "Senegal": {
-    "sentiment_score": 0.514,
-    "reddit_score": 0.0,
-    "news_score": 0.514,
-    "post_count": 0,
-    "article_count": 19,
-    "scored_articles": 12,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806221Z"
-  },
-  "Argentina": {
-    "sentiment_score": 0.712,
-    "reddit_score": 0.0,
-    "news_score": 0.712,
-    "post_count": 0,
-    "article_count": 19,
-    "scored_articles": 11,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806224Z"
-  },
-  "Algeria": {
-    "sentiment_score": -0.031,
-    "reddit_score": 0.0,
-    "news_score": -0.031,
-    "post_count": 0,
-    "article_count": 19,
-    "scored_articles": 8,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806228Z"
-  },
-  "Spain": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806232Z"
-  },
-  "Saudi Arabia": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806235Z"
-  },
-  "England": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806238Z"
-  },
-  "Ghana": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806241Z"
-  },
-  "Portugal": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806244Z"
-  },
-  "Colombia": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806248Z"
-  },
-  "Germany": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806251Z"
-  },
-  "Japan": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806254Z"
-  },
-  "Netherlands": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806257Z"
-  },
-  "Ivory Coast": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806260Z"
-  },
-  "Switzerland": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806263Z"
-  },
-  "Qatar": {
-    "sentiment_score": 0.0,
-    "reddit_score": 0.0,
-    "news_score": 0.0,
-    "post_count": 0,
-    "article_count": 0,
-    "scored_articles": 0,
-    "sample_post": "",
-    "updated_at": "2026-06-15T16:55:52.806266Z"
+    "updated_at": "2026-06-15T20:47:34.701860Z"
   }
 }

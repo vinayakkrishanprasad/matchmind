@@ -138,7 +138,7 @@
     "stage": "GROUP_STAGE",
     "home": "Spain",
     "away": "Cape Verde Islands",
-    "status": "IN_PLAY",
+    "status": "FINISHED",
     "home_score": 0,
     "away_score": 0
   },
@@ -149,9 +149,9 @@
     "stage": "GROUP_STAGE",
     "home": "Belgium",
     "away": "Egypt",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 1,
+    "away_score": 1
   },
   {
     "id": 537370,
