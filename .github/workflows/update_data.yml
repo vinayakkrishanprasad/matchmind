@@ -41,4 +41,5 @@ jobs:
           git config user.email "bot@matchmind.io"
           git add data/
           git diff --staged --quiet || git commit -m "auto: data update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase origin main
           git push
