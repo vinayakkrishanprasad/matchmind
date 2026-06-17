@@ -1,14 +1,14 @@
 {
   "Mexico": {
-    "attack": 2.213052862525399,
-    "defense": 1.8039961489159284
+    "attack": 2.27653749029373,
+    "defense": 1.8310560911496674
   },
   "South Africa": {
     "attack": 0.3,
     "defense": 0.3
   },
   "South Korea": {
-    "attack": 2.213052862525399,
+    "attack": 2.27653749029373,
     "defense": 1.0
   },
   "Czechia": {
@@ -24,20 +24,20 @@
     "defense": 1.0
   },
   "Australia": {
-    "attack": 1.6682555060665154,
-    "defense": 1.57836475340243
+    "attack": 1.737816604242867,
+    "defense": 1.6116394640035174
   },
   "Turkey": {
-    "attack": 0.4216352465975698,
-    "defense": 0.3317444939334848
+    "attack": 0.38836053599648246,
+    "defense": 0.3
   },
   "Brazil": {
-    "attack": 0.9311069604120112,
+    "attack": 0.9263680042117132,
     "defense": 1.0
   },
   "Morocco": {
     "attack": 1.0,
-    "defense": 1.0688930395879888
+    "defense": 1.0736319957882867
   },
   "Croatia": {
     "attack": 1.0,
@@ -48,20 +48,20 @@
     "defense": 1.0
   },
   "France": {
-    "attack": 1.095,
+    "attack": 1.190496375,
     "defense": 1.0
   },
   "Senegal": {
     "attack": 1.0,
-    "defense": 0.905
+    "defense": 0.8095036250000001
   },
   "Argentina": {
-    "attack": 1.0,
-    "defense": 1.0
+    "attack": 1.095,
+    "defense": 1.05
   },
   "Algeria": {
-    "attack": 1.0,
-    "defense": 1.0
+    "attack": 0.95,
+    "defense": 0.905
   },
   "Spain": {
     "attack": 1.0,
@@ -92,12 +92,12 @@
     "defense": 1.0
   },
   "Japan": {
-    "attack": 1.5383969905171528,
-    "defense": 0.5158146743525577
+    "attack": 1.6028905564870493,
+    "defense": 0.4579207257260801
   },
   "Netherlands": {
-    "attack": 1.4841853256474424,
-    "defense": 0.4616030094828469
+    "attack": 1.54207927427392,
+    "defense": 0.3971094435129505
   },
   "Ivory Coast": {
     "attack": 1.0,
@@ -105,10 +105,10 @@
   },
   "Switzerland": {
     "attack": 1.0,
-    "defense": 1.0688930395879888
+    "defense": 1.0736319957882867
   },
   "Qatar": {
-    "attack": 0.9311069604120112,
+    "attack": 0.9263680042117132,
     "defense": 1.0
   }
 }
