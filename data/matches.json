@@ -29,8 +29,8 @@
     "home": "Canada",
     "away": "Bosnia-Herzegovina",
     "status": "FINISHED",
-    "home_score": 1,
-    "away_score": 1
+    "home_score": null,
+    "away_score": null
   },
   {
     "id": 537345,
@@ -248,7 +248,7 @@
     "stage": "GROUP_STAGE",
     "home": "Ghana",
     "away": "Panama",
-    "status": "IN_PLAY",
+    "status": "FINISHED",
     "home_score": 1,
     "away_score": 0
   },
@@ -259,9 +259,9 @@
     "stage": "GROUP_STAGE",
     "home": "Uzbekistan",
     "away": "Colombia",
-    "status": "IN_PLAY",
-    "home_score": 0,
-    "away_score": 0
+    "status": "FINISHED",
+    "home_score": 1,
+    "away_score": 3
   },
   {
     "id": 537329,
