@@ -384,12 +384,20 @@ function renderSentiment(){
 }
 
 function renderMatches(){
-  if(state.matches.length===0){
+  // Filter out any matches with missing team names (future knockout TBD fixtures)
+  const validMatches = state.matches.filter(m => m.home && m.away && m.home !== 'null' && m.away !== 'null' && m.home !== 'TBD' && m.away !== 'TBD');
+
+  if(validMatches.length===0){
     document.getElementById('matchList').innerHTML = '<div style="padding:2rem;color:var(--ink-3);font-size:13px;">Waiting for first data sync.</div>';
     return;
   }
   const today=new Date().toISOString().slice(0,10);
-  const sorted = [...state.matches].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  // Show finished/live matches first (most recent first), then upcoming scheduled matches (soonest first)
+  const finished = validMatches.filter(m => m.status === 'FINISHED' || m.status === 'IN_PLAY')
+                                .sort((a,b) => new Date(b.date) - new Date(a.date));
+  const upcoming = validMatches.filter(m => m.status !== 'FINISHED' && m.status !== 'IN_PLAY')
+                                .sort((a,b) => new Date(a.date) - new Date(b.date));
+  const sorted = [...finished, ...upcoming];
   document.getElementById('matchList').innerHTML=sorted.slice(0,10).map(m=>{
     const fin=m.status==='FINISHED',live=m.status==='IN_PLAY';
     const hp=m.home_win!=null?Math.round(m.home_win*100):null,dp=m.draw!=null?Math.round(m.draw*100):null,ap=m.away_win!=null?Math.round(m.away_win*100):null;
