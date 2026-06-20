@@ -1,18 +1,18 @@
 {
   "Mexico": {
-    "attack": 2.1865905373445784,
-    "defense": 4.182661873928709
+    "attack": 2.044616453050387,
+    "defense": 4.537936798538391
   },
   "South Africa": {
     "attack": 0.3455,
     "defense": 0.3
   },
   "South Korea": {
-    "attack": 1.2509577846624862,
-    "defense": 2.0061782335320286
+    "attack": 1.0472975404779918,
+    "defense": 2.273266223228553
   },
   "Czechia": {
-    "attack": 1.1085021999541451,
+    "attack": 1.0800289430993137,
     "defense": 0.3
   },
   "USA": {
@@ -20,27 +20,27 @@
     "defense": 1.0
   },
   "Paraguay": {
-    "attack": 1.035,
-    "defense": 1.0165
+    "attack": 1.069475,
+    "defense": 1.03327225
   },
   "Australia": {
-    "attack": 2.5785896080029356,
-    "defense": 1.972567437210587
+    "attack": 2.636042879470887,
+    "defense": 2.002155948768746
   },
   "Turkey": {
     "attack": 0.3,
     "defense": 0.3
   },
   "Brazil": {
-    "attack": 0.8688419918091962,
+    "attack": 0.864788125080388,
     "defense": 1.0
   },
   "Morocco": {
     "attack": 1.0,
-    "defense": 1.1311580081908037
+    "defense": 1.1352118749196118
   },
   "Croatia": {
-    "attack": 1.6028905564870493,
+    "attack": 1.6710644076421124,
     "defense": 0.3
   },
   "Belgium": {
@@ -48,7 +48,7 @@
     "defense": 1.0
   },
   "France": {
-    "attack": 2.6326340942697284,
+    "attack": 2.739195631714278,
     "defense": 1.0
   },
   "Senegal": {
@@ -56,11 +56,11 @@
     "defense": 0.3
   },
   "Argentina": {
-    "attack": 2.524284793360171,
-    "defense": 1.6116394640035174
+    "attack": 2.6326340942697284,
+    "defense": 1.642934322307192
   },
   "Algeria": {
-    "attack": 0.38836053599648246,
+    "attack": 0.35706567769280795,
     "defense": 0.3
   },
   "Spain": {
@@ -72,8 +72,8 @@
     "defense": 1.0
   },
   "England": {
-    "attack": 2.7453411565675214,
-    "defense": 0.3971094435129505
+    "attack": 2.9000430274841573,
+    "defense": 0.3289355923578873
   },
   "Ghana": {
     "attack": 1.0,
@@ -92,11 +92,11 @@
     "defense": 1.0
   },
   "Japan": {
-    "attack": 2.4976277618055693,
+    "attack": 2.560163345378486,
     "defense": 0.3
   },
   "Netherlands": {
-    "attack": 2.4003815404457693,
+    "attack": 2.460775245028414,
     "defense": 0.3
   },
   "Ivory Coast": {
@@ -105,10 +105,10 @@
   },
   "Switzerland": {
     "attack": 1.0,
-    "defense": 1.1311580081908037
+    "defense": 1.1352118749196118
   },
   "Qatar": {
-    "attack": 0.8688419918091962,
+    "attack": 0.864788125080388,
     "defense": 1.0
   }
 }
