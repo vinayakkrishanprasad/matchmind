@@ -8,7 +8,14 @@
     "away": "South Africa",
     "status": "FINISHED",
     "home_score": 2,
-    "away_score": 0
+    "away_score": 0,
+    "home_win": 0.2215,
+    "draw": 0.2866,
+    "away_win": 0.4919,
+    "home_xg": 0.78,
+    "away_xg": 1.31,
+    "home_sentiment": 0.212,
+    "away_sentiment": -0.093
   },
   {
     "id": 537328,
@@ -19,7 +26,14 @@
     "away": "Czechia",
     "status": "FINISHED",
     "home_score": 2,
-    "away_score": 1
+    "away_score": 1,
+    "home_win": 0.0806,
+    "draw": 0.1886,
+    "away_win": 0.7309,
+    "home_xg": 0.49,
+    "away_xg": 1.98,
+    "home_sentiment": -0.035,
+    "away_sentiment": -0.073
   },
   {
     "id": 537333,
@@ -52,7 +66,14 @@
     "away": "Switzerland",
     "status": "FINISHED",
     "home_score": 1,
-    "away_score": 1
+    "away_score": 1,
+    "home_win": 0.3627,
+    "draw": 0.3015,
+    "away_win": 0.3358,
+    "home_xg": 1.06,
+    "away_xg": 1.01,
+    "home_sentiment": -0.21,
+    "away_sentiment": 0.149
   },
   {
     "id": 537339,
@@ -63,7 +84,14 @@
     "away": "Morocco",
     "status": "FINISHED",
     "home_score": 1,
-    "away_score": 1
+    "away_score": 1,
+    "home_win": 0.3688,
+    "draw": 0.3,
+    "away_win": 0.3312,
+    "home_xg": 1.08,
+    "away_xg": 1.01,
+    "home_sentiment": 0.0,
+    "away_sentiment": 0.113
   },
   {
     "id": 537340,
@@ -85,7 +113,14 @@
     "away": "Turkey",
     "status": "FINISHED",
     "home_score": 2,
-    "away_score": 0
+    "away_score": 0,
+    "home_win": 0.3876,
+    "draw": 0.3773,
+    "away_win": 0.2352,
+    "home_xg": 0.83,
+    "away_xg": 0.58,
+    "home_sentiment": -0.03,
+    "away_sentiment": -0.169
   },
   {
     "id": 537351,
@@ -107,7 +142,14 @@
     "away": "Japan",
     "status": "FINISHED",
     "home_score": 2,
-    "away_score": 2
+    "away_score": 2,
+    "home_win": 0.3287,
+    "draw": 0.367,
+    "away_win": 0.3043,
+    "home_xg": 0.77,
+    "away_xg": 0.73,
+    "home_sentiment": 0.0,
+    "away_sentiment": 0.0
   },
   {
     "id": 537352,
@@ -184,7 +226,14 @@
     "away": "Senegal",
     "status": "FINISHED",
     "home_score": 3,
-    "away_score": 1
+    "away_score": 1,
+    "home_win": 0.2993,
+    "draw": 0.3243,
+    "away_win": 0.3764,
+    "home_xg": 0.84,
+    "away_xg": 0.99,
+    "home_sentiment": 0.169,
+    "away_sentiment": -0.169
   },
   {
     "id": 537392,
@@ -206,7 +255,14 @@
     "away": "Algeria",
     "status": "FINISHED",
     "home_score": 3,
-    "away_score": 0
+    "away_score": 0,
+    "home_win": 0.3606,
+    "draw": 0.371,
+    "away_win": 0.2684,
+    "home_xg": 0.81,
+    "away_xg": 0.65,
+    "home_sentiment": 0.215,
+    "away_sentiment": -0.21
   },
   {
     "id": 537398,
@@ -239,7 +295,14 @@
     "away": "Croatia",
     "status": "FINISHED",
     "home_score": 4,
-    "away_score": 2
+    "away_score": 2,
+    "home_win": 0.3695,
+    "draw": 0.356,
+    "away_win": 0.2744,
+    "home_xg": 0.87,
+    "away_xg": 0.7,
+    "home_sentiment": 0.169,
+    "away_sentiment": -0.169
   },
   {
     "id": 537410,
@@ -272,7 +335,14 @@
     "away": "South Africa",
     "status": "FINISHED",
     "home_score": 1,
-    "away_score": 1
+    "away_score": 1,
+    "home_win": 0.2836,
+    "draw": 0.6475,
+    "away_win": 0.0688,
+    "home_xg": 0.37,
+    "away_xg": 0.1,
+    "home_sentiment": -0.073,
+    "away_sentiment": -0.093
   },
   {
     "id": 537335,
@@ -305,7 +375,14 @@
     "away": "South Korea",
     "status": "FINISHED",
     "home_score": 1,
-    "away_score": 0
+    "away_score": 0,
+    "home_win": 0.3232,
+    "draw": 0.1402,
+    "away_win": 0.5367,
+    "home_xg": 4.58,
+    "away_xg": 5.62,
+    "home_sentiment": 0.212,
+    "away_sentiment": -0.035
   },
   {
     "id": 537348,
@@ -336,7 +413,7 @@
     "stage": "GROUP_STAGE",
     "home": "Brazil",
     "away": "Haiti",
-    "status": "PAUSED",
+    "status": "IN_PLAY",
     "home_score": 3,
     "away_score": 0
   },
@@ -350,13 +427,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.2182,
-    "draw": 0.5876,
-    "away_win": 0.1942,
+    "home_win": 0.2164,
+    "draw": 0.5906,
+    "away_win": 0.193,
     "home_xg": 0.33,
-    "away_xg": 0.3,
-    "home_sentiment": -0.019,
-    "away_sentiment": -0.077
+    "away_xg": 0.29,
+    "home_sentiment": -0.169,
+    "away_sentiment": -0.21
   },
   {
     "id": 537359,
@@ -379,13 +456,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.3866,
-    "draw": 0.2923,
-    "away_win": 0.3211,
-    "home_xg": 1.15,
-    "away_xg": 1.02,
-    "home_sentiment": 0.61,
-    "away_sentiment": 0.3
+    "home_win": 0.3792,
+    "draw": 0.2965,
+    "away_win": 0.3243,
+    "home_xg": 1.12,
+    "away_xg": 1.01,
+    "home_sentiment": 0.21,
+    "away_sentiment": 0.134
   },
   {
     "id": 537354,
@@ -419,13 +496,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.3781,
-    "draw": 0.2929,
-    "away_win": 0.3289,
-    "home_xg": 1.14,
-    "away_xg": 1.04,
-    "home_sentiment": 0.405,
-    "away_sentiment": 0.48
+    "home_win": 0.3763,
+    "draw": 0.299,
+    "away_win": 0.3247,
+    "home_xg": 1.1,
+    "away_xg": 1.0,
+    "home_sentiment": 0.005,
+    "away_sentiment": 0.0
   },
   {
     "id": 537365,
@@ -525,13 +602,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.8371,
-    "draw": 0.1143,
-    "away_win": 0.0486,
-    "home_xg": 2.79,
-    "away_xg": 0.55,
-    "home_sentiment": 0.569,
-    "away_sentiment": 0.534
+    "home_win": 0.8621,
+    "draw": 0.1009,
+    "away_win": 0.037,
+    "home_xg": 2.89,
+    "away_xg": 0.47,
+    "home_sentiment": 0.169,
+    "away_sentiment": 0.134
   },
   {
     "id": 537412,
@@ -609,13 +686,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.9226,
-    "draw": 0.0527,
-    "away_win": 0.0247,
-    "home_xg": 4.31,
-    "away_xg": 0.75,
-    "home_sentiment": 0.06,
-    "away_sentiment": 0.465
+    "home_win": 0.9438,
+    "draw": 0.0394,
+    "away_win": 0.0168,
+    "home_xg": 4.7,
+    "away_xg": 0.71,
+    "home_sentiment": -0.073,
+    "away_sentiment": 0.212
   },
   {
     "id": 537332,
@@ -627,13 +704,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.3004,
-    "draw": 0.4368,
-    "away_win": 0.2628,
-    "home_xg": 0.59,
-    "away_xg": 0.53,
-    "home_sentiment": -0.36,
-    "away_sentiment": 0.365
+    "home_win": 0.3561,
+    "draw": 0.4345,
+    "away_win": 0.2094,
+    "home_xg": 0.67,
+    "away_xg": 0.44,
+    "home_sentiment": -0.093,
+    "away_sentiment": -0.035
   },
   {
     "id": 537355,
@@ -700,13 +777,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.3321,
-    "draw": 0.1892,
-    "away_win": 0.4787,
-    "home_xg": 2.09,
-    "away_xg": 2.5,
-    "home_sentiment": -0.077,
-    "away_sentiment": 0.21
+    "home_win": 0.3319,
+    "draw": 0.1887,
+    "away_win": 0.4793,
+    "home_xg": 2.1,
+    "away_xg": 2.51,
+    "home_sentiment": -0.21,
+    "away_sentiment": -0.03
   },
   {
     "id": 537395,
@@ -795,13 +872,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.7129,
-    "draw": 0.2221,
-    "away_win": 0.065,
-    "home_xg": 1.65,
-    "away_xg": 0.31,
-    "home_sentiment": 0.231,
-    "away_sentiment": 0.534
+    "home_win": 0.7189,
+    "draw": 0.2189,
+    "away_win": 0.0621,
+    "home_xg": 1.67,
+    "away_xg": 0.3,
+    "home_sentiment": -0.169,
+    "away_sentiment": 0.134
   },
   {
     "id": 537407,
@@ -813,13 +890,13 @@
     "status": "TIMED",
     "home_score": null,
     "away_score": null,
-    "home_win": 0.3783,
-    "draw": 0.2922,
-    "away_win": 0.3295,
-    "home_xg": 1.14,
-    "away_xg": 1.04,
-    "home_sentiment": 0.455,
-    "away_sentiment": 0.54
+    "home_win": 0.3806,
+    "draw": 0.2976,
+    "away_win": 0.3218,
+    "home_xg": 1.11,
+    "away_xg": 1.0,
+    "home_sentiment": 0.169,
+    "away_sentiment": 0.0
   },
   {
     "id": 537408,
@@ -850,358 +927,6 @@
     "stage": "GROUP_STAGE",
     "home": "Algeria",
     "away": "Austria",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537417,
-    "date": "2026-06-28",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537423,
-    "date": "2026-06-29",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537415,
-    "date": "2026-06-29",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537418,
-    "date": "2026-06-30",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537424,
-    "date": "2026-06-30",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537416,
-    "date": "2026-06-30",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537425,
-    "date": "2026-07-01",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537426,
-    "date": "2026-07-01",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537422,
-    "date": "2026-07-01",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537421,
-    "date": "2026-07-02",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537420,
-    "date": "2026-07-02",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537419,
-    "date": "2026-07-02",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537429,
-    "date": "2026-07-03",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537428,
-    "date": "2026-07-03",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537427,
-    "date": "2026-07-03",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537430,
-    "date": "2026-07-04",
-    "group": null,
-    "stage": "LAST_32",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537376,
-    "date": "2026-07-04",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537375,
-    "date": "2026-07-04",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537377,
-    "date": "2026-07-05",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537378,
-    "date": "2026-07-06",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537379,
-    "date": "2026-07-06",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537380,
-    "date": "2026-07-07",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537381,
-    "date": "2026-07-07",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537382,
-    "date": "2026-07-07",
-    "group": null,
-    "stage": "LAST_16",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537383,
-    "date": "2026-07-09",
-    "group": null,
-    "stage": "QUARTER_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537384,
-    "date": "2026-07-10",
-    "group": null,
-    "stage": "QUARTER_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537385,
-    "date": "2026-07-11",
-    "group": null,
-    "stage": "QUARTER_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537386,
-    "date": "2026-07-12",
-    "group": null,
-    "stage": "QUARTER_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537387,
-    "date": "2026-07-14",
-    "group": null,
-    "stage": "SEMI_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537388,
-    "date": "2026-07-15",
-    "group": null,
-    "stage": "SEMI_FINALS",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537389,
-    "date": "2026-07-18",
-    "group": null,
-    "stage": "THIRD_PLACE",
-    "home": null,
-    "away": null,
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
-  },
-  {
-    "id": 537390,
-    "date": "2026-07-19",
-    "group": null,
-    "stage": "FINAL",
-    "home": null,
-    "away": null,
     "status": "TIMED",
     "home_score": null,
     "away_score": null
