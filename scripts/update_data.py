@@ -372,14 +372,23 @@ def match_probs(home, away, params, sentiment):
 def compute_all_probs(matches, params, sentiment):
     enriched = []
     for m in matches:
+        # Skip future knockout matches where teams aren't determined yet
+        if not m["home"] or not m["away"]:
+            continue
+        if m["home"] in ("TBD", "null", None) or m["away"] in ("TBD", "null", None):
+            continue
+
         entry = dict(m)
-        if m["status"] in ("SCHEDULED","TIMED","IN_PLAY"):
-            h, a = m["home"], m["away"]
-            if h in params and a in params:
-                entry.update(match_probs(h,a,params,sentiment))
+        h, a = m["home"], m["away"]
+        # Compute probabilities for ALL matches with valid teams —
+        # both finished (for Brier score calibration) and upcoming (for predictions).
+        # Note: for finished matches this uses CURRENT team params, not the
+        # params at the time the match was played, so it's an approximation.
+        if h in params and a in params:
+            entry.update(match_probs(h, a, params, sentiment))
         enriched.append(entry)
     save_json(PROBABILITIES_FILE, enriched)
-    print(f"[probs] {len(enriched)} matches processed")
+    print(f"[probs] {len(enriched)} matches processed (TBD knockout fixtures excluded)")
     return enriched
 
 # ---------------------------------------------------------------------------
