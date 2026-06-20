@@ -314,8 +314,8 @@
     "stage": "GROUP_STAGE",
     "home": "United States",
     "away": "Australia",
-    "status": "IN_PLAY",
-    "home_score": 1,
+    "status": "FINISHED",
+    "home_score": 2,
     "away_score": 0
   },
   {
@@ -325,9 +325,9 @@
     "stage": "GROUP_STAGE",
     "home": "Scotland",
     "away": "Morocco",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 0,
+    "away_score": 1
   },
   {
     "id": 537341,
@@ -336,9 +336,9 @@
     "stage": "GROUP_STAGE",
     "home": "Brazil",
     "away": "Haiti",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 3,
+    "away_score": 0
   },
   {
     "id": 537347,
