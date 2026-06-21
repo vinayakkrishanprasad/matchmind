@@ -402,9 +402,9 @@
     "stage": "GROUP_STAGE",
     "home": "Spain",
     "away": "Saudi Arabia",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 5,
+    "away_score": 0
   },
   {
     "id": 537365,
@@ -413,9 +413,9 @@
     "stage": "GROUP_STAGE",
     "home": "Belgium",
     "away": "Iran",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537372,
