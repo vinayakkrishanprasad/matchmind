@@ -457,9 +457,9 @@
     "stage": "GROUP_STAGE",
     "home": "France",
     "away": "Iraq",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 3,
+    "away_score": 0
   },
   {
     "id": 537394,
@@ -468,9 +468,9 @@
     "stage": "GROUP_STAGE",
     "home": "Norway",
     "away": "Senegal",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 3,
+    "away_score": 2
   },
   {
     "id": 537400,
@@ -818,7 +818,7 @@
     "date": "2026-06-29",
     "group": null,
     "stage": "LAST_32",
-    "home": null,
+    "home": "Germany",
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -862,7 +862,7 @@
     "date": "2026-07-01",
     "group": null,
     "stage": "LAST_32",
-    "home": null,
+    "home": "Mexico",
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -895,7 +895,7 @@
     "date": "2026-07-02",
     "group": null,
     "stage": "LAST_32",
-    "home": null,
+    "home": "United States",
     "away": null,
     "status": "TIMED",
     "home_score": null,
