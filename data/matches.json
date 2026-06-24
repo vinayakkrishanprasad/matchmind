@@ -501,9 +501,9 @@
     "stage": "GROUP_STAGE",
     "home": "England",
     "away": "Ghana",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537412,
@@ -512,9 +512,9 @@
     "stage": "GROUP_STAGE",
     "home": "Panama",
     "away": "Croatia",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 0,
+    "away_score": 1
   },
   {
     "id": 537406,
