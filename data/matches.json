@@ -732,9 +732,9 @@
     "stage": "GROUP_STAGE",
     "home": "Panama",
     "away": "England",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 0,
+    "away_score": 2
   },
   {
     "id": 537414,
@@ -743,9 +743,9 @@
     "stage": "GROUP_STAGE",
     "home": "Croatia",
     "away": "Ghana",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 2,
+    "away_score": 1
   },
   {
     "id": 537407,
@@ -754,9 +754,9 @@
     "stage": "GROUP_STAGE",
     "home": "Colombia",
     "away": "Portugal",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537408,
@@ -765,9 +765,9 @@
     "stage": "GROUP_STAGE",
     "home": "Congo DR",
     "away": "Uzbekistan",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 3,
+    "away_score": 1
   },
   {
     "id": 537401,
@@ -776,9 +776,9 @@
     "stage": "GROUP_STAGE",
     "home": "Jordan",
     "away": "Argentina",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537402,
@@ -787,17 +787,17 @@
     "stage": "GROUP_STAGE",
     "home": "Algeria",
     "away": "Austria",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "LIVE",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537417,
     "date": "2026-06-28",
     "group": null,
     "stage": "LAST_32",
-    "home": "South Africa",
-    "away": "Canada",
+    "home": null,
+    "away": null,
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -807,8 +807,8 @@
     "date": "2026-06-29",
     "group": null,
     "stage": "LAST_32",
-    "home": "Brazil",
-    "away": "Japan",
+    "home": null,
+    "away": null,
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -818,7 +818,7 @@
     "date": "2026-06-29",
     "group": null,
     "stage": "LAST_32",
-    "home": "Germany",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -829,8 +829,8 @@
     "date": "2026-06-30",
     "group": null,
     "stage": "LAST_32",
-    "home": "Netherlands",
-    "away": "Morocco",
+    "home": null,
+    "away": null,
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -840,7 +840,7 @@
     "date": "2026-06-30",
     "group": null,
     "stage": "LAST_32",
-    "home": "Ivory Coast",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -862,7 +862,7 @@
     "date": "2026-07-01",
     "group": null,
     "stage": "LAST_32",
-    "home": "Mexico",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -895,8 +895,8 @@
     "date": "2026-07-02",
     "group": null,
     "stage": "LAST_32",
-    "home": "United States",
-    "away": "Bosnia-Herzegovina",
+    "home": null,
+    "away": null,
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -928,7 +928,7 @@
     "date": "2026-07-03",
     "group": null,
     "stage": "LAST_32",
-    "home": "Switzerland",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -939,7 +939,7 @@
     "date": "2026-07-03",
     "group": null,
     "stage": "LAST_32",
-    "home": "Australia",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
@@ -950,7 +950,7 @@
     "date": "2026-07-03",
     "group": null,
     "stage": "LAST_32",
-    "home": "Argentina",
+    "home": null,
     "away": null,
     "status": "TIMED",
     "home_score": null,
