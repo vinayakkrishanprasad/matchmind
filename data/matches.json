@@ -820,9 +820,9 @@
     "stage": "LAST_32",
     "home": "Germany",
     "away": "Paraguay",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 4,
+    "away_score": 5
   },
   {
     "id": 537418,
@@ -831,9 +831,9 @@
     "stage": "LAST_32",
     "home": "Netherlands",
     "away": "Morocco",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537424,
