@@ -864,8 +864,8 @@
     "stage": "LAST_32",
     "home": "Mexico",
     "away": "Ecuador",
-    "status": "LIVE",
-    "home_score": 0,
+    "status": "FINISHED",
+    "home_score": 2,
     "away_score": 0
   },
   {
@@ -984,7 +984,7 @@
     "group": null,
     "stage": "LAST_16",
     "home": "Paraguay",
-    "away": null,
+    "away": "France",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -995,7 +995,7 @@
     "group": null,
     "stage": "LAST_16",
     "home": "Brazil",
-    "away": null,
+    "away": "Norway",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
