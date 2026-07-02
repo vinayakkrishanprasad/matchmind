@@ -897,7 +897,7 @@
     "stage": "LAST_32",
     "home": "United States",
     "away": "Bosnia-Herzegovina",
-    "status": "IN_PLAY",
+    "status": "FINISHED",
     "home_score": 2,
     "away_score": 0
   },
@@ -1005,8 +1005,8 @@
     "date": "2026-07-06",
     "group": null,
     "stage": "LAST_16",
-    "home": null,
-    "away": null,
+    "home": "Mexico",
+    "away": "England",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -1027,8 +1027,8 @@
     "date": "2026-07-07",
     "group": null,
     "stage": "LAST_16",
-    "home": null,
-    "away": null,
+    "home": "United States",
+    "away": "Belgium",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
