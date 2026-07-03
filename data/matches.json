@@ -941,9 +941,9 @@
     "stage": "LAST_32",
     "home": "Australia",
     "away": "Egypt",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 0,
+    "away_score": 1
   },
   {
     "id": 537427,
