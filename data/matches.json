@@ -963,8 +963,8 @@
     "stage": "LAST_32",
     "home": "Colombia",
     "away": "Ghana",
-    "status": "IN_PLAY",
-    "home_score": 0,
+    "status": "FINISHED",
+    "home_score": 1,
     "away_score": 0
   },
   {
@@ -1016,8 +1016,8 @@
     "date": "2026-07-06",
     "group": null,
     "stage": "LAST_16",
-    "home": null,
-    "away": null,
+    "home": "Portugal",
+    "away": "Spain",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -1038,8 +1038,8 @@
     "date": "2026-07-07",
     "group": null,
     "stage": "LAST_16",
-    "home": null,
-    "away": null,
+    "home": "Argentina",
+    "away": "Egypt",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
@@ -1049,8 +1049,8 @@
     "date": "2026-07-07",
     "group": null,
     "stage": "LAST_16",
-    "home": null,
-    "away": null,
+    "home": "Switzerland",
+    "away": "Colombia",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
