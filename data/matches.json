@@ -941,9 +941,9 @@
     "stage": "LAST_32",
     "home": "Australia",
     "away": "Egypt",
-    "status": "PAUSED",
-    "home_score": 0,
-    "away_score": 1
+    "status": "FINISHED",
+    "home_score": 3,
+    "away_score": 5
   },
   {
     "id": 537427,
@@ -952,9 +952,9 @@
     "stage": "LAST_32",
     "home": "Argentina",
     "away": "Cape Verde Islands",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 3,
+    "away_score": 2
   },
   {
     "id": 537430,
@@ -963,9 +963,9 @@
     "stage": "LAST_32",
     "home": "Colombia",
     "away": "Ghana",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "IN_PLAY",
+    "home_score": 0,
+    "away_score": 0
   },
   {
     "id": 537376,
