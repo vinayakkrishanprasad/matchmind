@@ -1007,9 +1007,9 @@
     "stage": "LAST_16",
     "home": "Mexico",
     "away": "England",
-    "status": "PAUSED",
-    "home_score": 1,
-    "away_score": 2
+    "status": "FINISHED",
+    "home_score": 2,
+    "away_score": 3
   },
   {
     "id": 537379,
@@ -1082,8 +1082,8 @@
     "date": "2026-07-11",
     "group": null,
     "stage": "QUARTER_FINALS",
-    "home": null,
-    "away": null,
+    "home": "Norway",
+    "away": "England",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
