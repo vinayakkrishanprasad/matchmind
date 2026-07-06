@@ -996,9 +996,9 @@
     "stage": "LAST_16",
     "home": "Brazil",
     "away": "Norway",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "FINISHED",
+    "home_score": 1,
+    "away_score": 2
   },
   {
     "id": 537378,
@@ -1007,9 +1007,9 @@
     "stage": "LAST_16",
     "home": "Mexico",
     "away": "England",
-    "status": "TIMED",
-    "home_score": null,
-    "away_score": null
+    "status": "PAUSED",
+    "home_score": 1,
+    "away_score": 2
   },
   {
     "id": 537379,
