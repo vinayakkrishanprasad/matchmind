@@ -1007,7 +1007,7 @@
     "stage": "LAST_16",
     "home": "Mexico",
     "away": "England",
-    "status": "2026-07-06 01:00:00Z",
+    "status": "FINISHED",
     "home_score": 2,
     "away_score": 3
   },
@@ -1095,9 +1095,9 @@
     "stage": "QUARTER_FINALS",
     "home": "Argentina",
     "away": "Switzerland",
-    "status": "IN_PLAY",
-    "home_score": 1,
-    "away_score": 0
+    "status": "FINISHED",
+    "home_score": 3,
+    "away_score": 1
   },
   {
     "id": 537387,
@@ -1115,8 +1115,8 @@
     "date": "2026-07-15",
     "group": null,
     "stage": "SEMI_FINALS",
-    "home": null,
-    "away": null,
+    "home": "England",
+    "away": "Argentina",
     "status": "TIMED",
     "home_score": null,
     "away_score": null
