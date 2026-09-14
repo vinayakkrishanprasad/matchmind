@@ -5,15 +5,15 @@
     "newsapi_score": 0.333,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371161Z"
+    "updated_at": "2026-09-14T02:01:43.780026Z"
   },
   "South Africa": {
-    "sentiment_score": 0.083,
+    "sentiment_score": 0.193,
     "momentum_score": -0.143,
-    "newsapi_score": 0.333,
+    "newsapi_score": 0.608,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371169Z"
+    "updated_at": "2026-09-14T02:01:43.780034Z"
   },
   "South Korea": {
     "sentiment_score": -0.119,
@@ -21,7 +21,7 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "poor recent form",
-    "updated_at": "2026-09-13T19:56:48.371172Z"
+    "updated_at": "2026-09-14T02:01:43.780039Z"
   },
   "Czechia": {
     "sentiment_score": 0.223,
@@ -29,15 +29,15 @@
     "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "poor recent form; positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371175Z"
+    "updated_at": "2026-09-14T02:01:43.780043Z"
   },
   "USA": {
-    "sentiment_score": 0.6,
+    "sentiment_score": 0.48,
     "momentum_score": 0.0,
-    "newsapi_score": 1.0,
+    "newsapi_score": 0.8,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371177Z"
+    "updated_at": "2026-09-14T02:01:43.780046Z"
   },
   "Paraguay": {
     "sentiment_score": -0.041,
@@ -45,15 +45,15 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371179Z"
+    "updated_at": "2026-09-14T02:01:43.780049Z"
   },
   "Australia": {
-    "sentiment_score": -0.132,
+    "sentiment_score": 0.218,
     "momentum_score": -0.378,
-    "newsapi_score": 0.0,
+    "newsapi_score": 0.875,
     "gnews_score": 0.0,
-    "insight": "poor recent form",
-    "updated_at": "2026-09-13T19:56:48.371181Z"
+    "insight": "poor recent form; positive media coverage",
+    "updated_at": "2026-09-14T02:01:43.780053Z"
   },
   "Turkey": {
     "sentiment_score": 0.373,
@@ -61,15 +61,15 @@
     "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371186Z"
+    "updated_at": "2026-09-14T02:01:43.780060Z"
   },
   "Brazil": {
-    "sentiment_score": 0.14,
+    "sentiment_score": 0.059,
     "momentum_score": 0.17,
-    "newsapi_score": 0.2,
+    "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371191Z"
+    "updated_at": "2026-09-14T02:01:43.780065Z"
   },
   "Morocco": {
     "sentiment_score": 0.178,
@@ -77,7 +77,7 @@
     "newsapi_score": 0.333,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371193Z"
+    "updated_at": "2026-09-14T02:01:43.780068Z"
   },
   "Croatia": {
     "sentiment_score": 0.395,
@@ -85,23 +85,23 @@
     "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371195Z"
+    "updated_at": "2026-09-14T02:01:43.780071Z"
   },
   "Belgium": {
-    "sentiment_score": 0.364,
+    "sentiment_score": 0.453,
     "momentum_score": 0.151,
-    "newsapi_score": 0.778,
-    "gnews_score": 0.0,
-    "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371197Z"
-  },
-  "France": {
-    "sentiment_score": 0.357,
-    "momentum_score": -0.124,
     "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371199Z"
+    "updated_at": "2026-09-14T02:01:43.780074Z"
+  },
+  "France": {
+    "sentiment_score": 0.299,
+    "momentum_score": -0.124,
+    "newsapi_score": 0.857,
+    "gnews_score": 0.0,
+    "insight": "positive media coverage",
+    "updated_at": "2026-09-14T02:01:43.780077Z"
   },
   "Senegal": {
     "sentiment_score": -0.055,
@@ -109,7 +109,7 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371200Z"
+    "updated_at": "2026-09-14T02:01:43.780080Z"
   },
   "Argentina": {
     "sentiment_score": 0.267,
@@ -117,7 +117,7 @@
     "newsapi_score": 0.5,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371202Z"
+    "updated_at": "2026-09-14T02:01:43.780082Z"
   },
   "Algeria": {
     "sentiment_score": -0.093,
@@ -125,15 +125,15 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371204Z"
+    "updated_at": "2026-09-14T02:01:43.780085Z"
   },
   "Spain": {
-    "sentiment_score": 0.572,
+    "sentiment_score": 0.563,
     "momentum_score": 0.72,
-    "newsapi_score": 0.8,
+    "newsapi_score": 0.778,
     "gnews_score": 0.0,
     "insight": "strong recent form; positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371206Z"
+    "updated_at": "2026-09-14T02:01:43.780088Z"
   },
   "Saudi Arabia": {
     "sentiment_score": -0.102,
@@ -141,15 +141,15 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371208Z"
+    "updated_at": "2026-09-14T02:01:43.780091Z"
   },
   "England": {
-    "sentiment_score": 0.271,
+    "sentiment_score": 0.358,
     "momentum_score": 0.347,
-    "newsapi_score": 0.375,
+    "newsapi_score": 0.591,
     "gnews_score": 0.0,
     "insight": "strong recent form; positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371209Z"
+    "updated_at": "2026-09-14T02:01:43.780094Z"
   },
   "Ghana": {
     "sentiment_score": -0.14,
@@ -157,7 +157,7 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "poor recent form",
-    "updated_at": "2026-09-13T19:56:48.371211Z"
+    "updated_at": "2026-09-14T02:01:43.780097Z"
   },
   "Portugal": {
     "sentiment_score": 0.416,
@@ -165,7 +165,7 @@
     "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371213Z"
+    "updated_at": "2026-09-14T02:01:43.780100Z"
   },
   "Colombia": {
     "sentiment_score": 0.0,
@@ -173,23 +173,23 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371215Z"
+    "updated_at": "2026-09-14T02:01:43.780103Z"
   },
   "Germany": {
-    "sentiment_score": 0.319,
+    "sentiment_score": 0.346,
     "momentum_score": -0.154,
-    "newsapi_score": 0.932,
+    "newsapi_score": 1.0,
     "gnews_score": 0.0,
     "insight": "positive media coverage",
-    "updated_at": "2026-09-13T19:56:48.371217Z"
+    "updated_at": "2026-09-14T02:01:43.780106Z"
   },
   "Japan": {
-    "sentiment_score": -0.017,
+    "sentiment_score": 0.383,
     "momentum_score": -0.048,
-    "newsapi_score": 0.0,
+    "newsapi_score": 1.0,
     "gnews_score": 0.0,
-    "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371219Z"
+    "insight": "positive media coverage",
+    "updated_at": "2026-09-14T02:01:43.780109Z"
   },
   "Netherlands": {
     "sentiment_score": -0.249,
@@ -197,7 +197,7 @@
     "newsapi_score": -0.75,
     "gnews_score": 0.0,
     "insight": "negative media coverage",
-    "updated_at": "2026-09-13T19:56:48.371221Z"
+    "updated_at": "2026-09-14T02:01:43.780111Z"
   },
   "Ivory Coast": {
     "sentiment_score": -0.049,
@@ -205,7 +205,7 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371222Z"
+    "updated_at": "2026-09-14T02:01:43.780114Z"
   },
   "Switzerland": {
     "sentiment_score": 0.039,
@@ -213,7 +213,7 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "neutral signal across sources",
-    "updated_at": "2026-09-13T19:56:48.371224Z"
+    "updated_at": "2026-09-14T02:01:43.780117Z"
   },
   "Qatar": {
     "sentiment_score": -0.249,
@@ -221,6 +221,6 @@
     "newsapi_score": 0.0,
     "gnews_score": 0.0,
     "insight": "poor recent form",
-    "updated_at": "2026-09-13T19:56:48.371225Z"
+    "updated_at": "2026-09-14T02:01:43.780119Z"
   }
 }
