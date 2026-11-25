@@ -13,9 +13,9 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.19,
-    "away_xg": 1.0011547134364315e+17,
+    "away_xg": 1.076043434194136e+17,
     "home_sentiment": 0.468,
-    "away_sentiment": -0.024
+    "away_sentiment": 0.026
   },
   {
     "id": 537328,
@@ -31,7 +31,7 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 6.033865712691951e+16,
+    "away_xg": 6.4566606016284136e+16,
     "home_sentiment": -0.119,
     "away_sentiment": -0.177
   },
@@ -67,12 +67,12 @@
     "status": "FINISHED",
     "home_score": 1,
     "away_score": 1,
-    "home_win": 0.5971,
-    "draw": 0.3685,
-    "away_win": 0.0344,
-    "home_xg": 1.0,
+    "home_win": 0.6023,
+    "draw": 0.3638,
+    "away_win": 0.0339,
+    "home_xg": 1.01,
     "away_xg": 0.09,
-    "home_sentiment": -0.049,
+    "home_sentiment": 0.126,
     "away_sentiment": 0.439
   },
   {
@@ -88,9 +88,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 59750869638307.68,
-    "away_xg": 273410279.2,
-    "home_sentiment": 0.193,
+    "home_xg": 63140030200686.16,
+    "away_xg": 282999221.96,
+    "home_sentiment": 0.14,
     "away_sentiment": 0.444
   },
   {
@@ -118,8 +118,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 335825437.82,
-    "home_sentiment": 0.048,
+    "away_xg": 347340065.11,
+    "home_sentiment": 0.068,
     "away_sentiment": -0.027
   },
   {
@@ -143,13 +143,13 @@
     "status": "FINISHED",
     "home_score": 2,
     "away_score": 2,
-    "home_win": 0.0868,
-    "draw": 0.8342,
-    "away_win": 0.079,
+    "home_win": 0.0869,
+    "draw": 0.835,
+    "away_win": 0.0782,
     "home_xg": 0.1,
     "away_xg": 0.09,
     "home_sentiment": 0.051,
-    "away_sentiment": 0.116
+    "away_sentiment": -0.017
   },
   {
     "id": 537352,
@@ -231,8 +231,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.17,
-    "away_xg": 6.14344434502855e+23,
-    "home_sentiment": 0.136,
+    "away_xg": 6.844534406051244e+23,
+    "home_sentiment": 0.179,
     "away_sentiment": -0.055
   },
   {
@@ -260,8 +260,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 21539457792050.02,
-    "home_sentiment": 0.292,
+    "away_xg": 22928815364972.38,
+    "home_sentiment": 0.397,
     "away_sentiment": -0.36
   },
   {
@@ -296,13 +296,13 @@
     "status": "FINISHED",
     "home_score": 4,
     "away_score": 2,
-    "home_win": 0.09,
-    "draw": 0.8321,
-    "away_win": 0.078,
+    "home_win": 0.0898,
+    "draw": 0.8305,
+    "away_win": 0.0798,
     "home_xg": 0.1,
     "away_xg": 0.09,
     "home_sentiment": 0.521,
-    "away_sentiment": -0.005
+    "away_sentiment": 0.295
   },
   {
     "id": 537410,
@@ -337,12 +337,12 @@
     "home_score": 1,
     "away_score": 1,
     "home_win": 0.0866,
-    "draw": 0.8353,
-    "away_win": 0.0781,
+    "draw": 0.835,
+    "away_win": 0.0785,
     "home_xg": 0.1,
     "away_xg": 0.09,
     "home_sentiment": -0.177,
-    "away_sentiment": -0.024
+    "away_sentiment": 0.026
   },
   {
     "id": 537335,
@@ -379,8 +379,8 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 1.2526720055725598e+17,
-    "away_xg": 9.935313006617874e+16,
+    "home_xg": 1.3404471312860522e+17,
+    "away_xg": 1.0635872392429824e+17,
     "home_sentiment": 0.468,
     "away_sentiment": -0.119
   },
@@ -430,7 +430,7 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 1.427316535825035e+21,
+    "home_xg": 1.559810093201546e+21,
     "away_xg": 0.09,
     "home_sentiment": -0.027,
     "away_sentiment": -0.041
@@ -456,13 +456,13 @@
     "status": "FINISHED",
     "home_score": 2,
     "away_score": 1,
-    "home_win": 0.0358,
-    "draw": 0.3684,
-    "away_win": 0.5957,
+    "home_win": 0.0353,
+    "draw": 0.3579,
+    "away_win": 0.6069,
     "home_xg": 0.1,
-    "away_xg": 1.0,
-    "home_sentiment": -0.237,
-    "away_sentiment": -0.049
+    "away_xg": 1.03,
+    "home_sentiment": -0.054,
+    "away_sentiment": 0.351
   },
   {
     "id": 537354,
@@ -500,8 +500,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 4.779216786697901e+23,
-    "home_sentiment": 0.564,
+    "away_xg": 5.325014272033386e+23,
+    "home_sentiment": 0.652,
     "away_sentiment": -0.102
   },
   {
@@ -605,7 +605,7 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 9724402009121532.0,
+    "home_xg": 1.0374871812854008e+16,
     "away_xg": 0.09,
     "home_sentiment": 0.521,
     "away_sentiment": 0.26
@@ -689,7 +689,7 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 1.0877647072014157e+17,
+    "home_xg": 1.1644652373887733e+17,
     "away_xg": 0.17,
     "home_sentiment": -0.177,
     "away_sentiment": 0.468
@@ -707,9 +707,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 6.7196591328977736e+16,
+    "home_xg": 7.219325145305306e+16,
     "away_xg": 0.09,
-    "home_sentiment": -0.024,
+    "home_sentiment": 0.026,
     "away_sentiment": -0.119
   },
   {
@@ -780,10 +780,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 368993349.05,
-    "away_xg": 1.3053627028222808e+21,
+    "home_xg": 381645222.35,
+    "away_xg": 1.428809373800648e+21,
     "home_sentiment": -0.041,
-    "away_sentiment": 0.048
+    "away_sentiment": 0.068
   },
   {
     "id": 537395,
@@ -875,9 +875,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 9331572314259546.0,
+    "home_xg": 1.0194799542697724e+16,
     "away_xg": 0.09,
-    "home_sentiment": -0.005,
+    "home_sentiment": 0.295,
     "away_sentiment": 0.26
   },
   {
@@ -893,9 +893,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 865975474958627.6,
-    "away_xg": 3461190157051.76,
-    "home_sentiment": 0.369,
+    "home_xg": 920493678832971.4,
+    "away_xg": 3660243377280.95,
+    "home_sentiment": 0.337,
     "away_sentiment": 0.416
   },
   {
@@ -956,9 +956,9 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.13,
-    "away_xg": 266482083.01,
-    "home_sentiment": 0.193,
-    "away_sentiment": 0.116
+    "away_xg": 272920216.91,
+    "home_sentiment": 0.14,
+    "away_sentiment": -0.017
   },
   {
     "id": 537415,
@@ -973,9 +973,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 1.4032857114425083e+21,
+    "home_xg": 1.5564336101969408e+21,
     "away_xg": 0.09,
-    "home_sentiment": -0.237,
+    "home_sentiment": -0.054,
     "away_sentiment": -0.041
   },
   {
@@ -991,7 +991,7 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 44867045142776.8,
+    "home_xg": 47610772653886.87,
     "away_xg": 0.09,
     "home_sentiment": 0.051,
     "away_sentiment": 0.444
@@ -1050,12 +1050,12 @@
     "status": "FINISHED",
     "home_score": 3,
     "away_score": 2,
-    "home_win": 0.0833,
-    "draw": 0.8151,
-    "away_win": 0.1016,
+    "home_win": 0.0846,
+    "draw": 0.814,
+    "away_win": 0.1015,
     "home_xg": 0.1,
     "away_xg": 0.12,
-    "home_sentiment": -0.147,
+    "home_sentiment": 0.053,
     "away_sentiment": -0.055
   },
   {
@@ -1094,9 +1094,9 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 514806143082111.06,
+    "away_xg": 561751483338548.9,
     "home_sentiment": 0.416,
-    "away_sentiment": -0.005
+    "away_sentiment": 0.295
   },
   {
     "id": 537429,
@@ -1151,9 +1151,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 1.4270001304978056e+16,
-    "away_xg": 3419385754411.62,
-    "home_sentiment": 0.369,
+    "home_xg": 1.5186671127321818e+16,
+    "away_xg": 3616034801339.81,
+    "home_sentiment": 0.337,
     "away_sentiment": 0.26
   },
   {
@@ -1180,10 +1180,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 5.1317756909170594e+23,
-    "away_xg": 2.169172635485735e+21,
+    "home_xg": 5.7174140934544394e+23,
+    "away_xg": 2.378597350058253e+21,
     "home_sentiment": -0.041,
-    "away_sentiment": 0.136
+    "away_sentiment": 0.179
   },
   {
     "id": 537377,
@@ -1210,7 +1210,7 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.18,
-    "away_xg": 1.0448890288278114e+17,
+    "away_xg": 1.1185663066135912e+17,
     "home_sentiment": 0.468,
     "away_sentiment": 0.521
   },
@@ -1227,10 +1227,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 5.476786612251097e+23,
-    "away_xg": 538249496056398.5,
+    "home_xg": 6.102248166747987e+23,
+    "away_xg": 577425205851394.6,
     "home_sentiment": 0.416,
-    "away_sentiment": 0.564
+    "away_sentiment": 0.652
   },
   {
     "id": 537380,
@@ -1267,10 +1267,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 3814088989338.96,
+    "home_xg": 4033437439184.12,
     "away_xg": 0.14,
     "home_sentiment": 0.439,
-    "away_sentiment": 0.369
+    "away_sentiment": 0.337
   },
   {
     "id": 537383,
@@ -1285,9 +1285,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 74539515655874.53,
-    "away_xg": 4.8468580247378974e+23,
-    "home_sentiment": 0.136,
+    "home_xg": 79366953803480.89,
+    "away_xg": 5.3999816142893604e+23,
+    "home_sentiment": 0.179,
     "away_sentiment": 0.444
   },
   {
@@ -1304,9 +1304,9 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 4.7618700569510544e+23,
-    "home_sentiment": 0.564,
-    "away_sentiment": -0.147
+    "away_xg": 5.3915876880815524e+23,
+    "home_sentiment": 0.652,
+    "away_sentiment": 0.053
   },
   {
     "id": 537385,
@@ -1333,8 +1333,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.1,
-    "away_xg": 22957087674739.3,
-    "home_sentiment": 0.292,
+    "away_xg": 24437886491546.76,
+    "home_sentiment": 0.397,
     "away_sentiment": 0.439
   },
   {
@@ -1350,10 +1350,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 8.841688518587289e+23,
-    "away_xg": 4.891791813595171e+23,
-    "home_sentiment": 0.136,
-    "away_sentiment": 0.564
+    "home_xg": 9.884953739752551e+23,
+    "away_xg": 5.4867551136537133e+23,
+    "home_sentiment": 0.179,
+    "away_sentiment": 0.652
   },
   {
     "id": 537388,
@@ -1368,10 +1368,10 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 25412834258757.13,
+    "home_xg": 27052035861123.22,
     "away_xg": 0.09,
     "home_sentiment": 0.521,
-    "away_sentiment": 0.292
+    "away_sentiment": 0.397
   },
   {
     "id": 537389,
@@ -1387,8 +1387,8 @@
     "draw": NaN,
     "away_win": NaN,
     "home_xg": 0.17,
-    "away_xg": 4.875690539254647e+23,
-    "home_sentiment": 0.136,
+    "away_xg": 5.432104496265587e+23,
+    "home_sentiment": 0.179,
     "away_sentiment": 0.521
   },
   {
@@ -1404,9 +1404,9 @@
     "home_win": NaN,
     "draw": NaN,
     "away_win": NaN,
-    "home_xg": 25496756528408.2,
-    "away_xg": 4.931097042703625e+23,
-    "home_sentiment": 0.564,
-    "away_sentiment": 0.292
+    "home_xg": 27324197499845.84,
+    "away_xg": 5.5393377211174844e+23,
+    "home_sentiment": 0.652,
+    "away_sentiment": 0.397
   }
 ]
